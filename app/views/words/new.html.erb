@@ -1,2 +1,30 @@
-<h1>Words#new</h1>
-<p>Find me in app/views/words/new.html.erb</p>
+<h1>単語投稿</h1>
+
+<% if @word.errors.any? %>
+  <%= @word.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @word.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @word do |f| %>
+
+　<h4>スペイン語 単語</h4>
+　<%= f.text_field :spanish %>
+
+　<h4>日本語 単語</h4>
+　<%= f.text_field :japanese %>
+
+　<h4>スペイン語 例文</h4>
+　<%= f.text_area :spanish_example %>
+
+　<h4>日本語 例文</h4>
+　<%= f.text_area :japanese_example %>
+
+　<!--下書き/公開-->
+
+
+　<%= f.submit '投稿' %>
+<% end %>

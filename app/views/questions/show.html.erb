@@ -1,2 +1,30 @@
-<h1>Questions#show</h1>
-<p>Find me in app/views/questions/show.html.erb</p>
+<p>未解決/解決</p>
+
+
+<h2>タイトル</h2>
+<p><%= @question.title %></p>
+
+
+<p>user image</p>
+<p>user name</p>
+
+<p>投稿日時</p>
+
+
+
+<h2>本文</h2>
+<p><%= @article.body %></p>
+
+
+<p>編集、下書きに戻す、削除ボタン（自分の時）</p>
+<%= link_to "編集", edit_question_path(@question.id) %>
+<%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+
+<p>コメント一覧</p>
+<p>コメント入力</p>
+<p>送信ボタン</p>
+
+<p>回答一覧（回答に対するいいね）</p>
+<p>回答入力</p>
+<p>回答するボタン</p>

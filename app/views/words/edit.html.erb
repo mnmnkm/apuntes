@@ -1,2 +1,21 @@
-<h1>Words#edit</h1>
-<p>Find me in app/views/words/edit.html.erb</p>
+<h1>編集画面</h1>
+
+<%= form_with model: @word do |f| %>
+
+　<h4>スペイン語 単語</h4>
+　<%= f.text_field :spanish %>
+
+　<h4>日本語 単語</h4>
+　<%= f.text_field :japanese %>
+
+　<h4>スペイン語 例文</h4>
+　<%= f.text_area :spanish_example %>
+
+　<h4>日本語 例文</h4>
+　<%= f.text_area :japanese_example %>
+
+　<!--下書き/公開-->
+
+
+　<%= f.submit '保存' %>
+<% end %>

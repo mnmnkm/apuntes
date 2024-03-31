@@ -1,2 +1,28 @@
-<h1>Words#index</h1>
-<p>Find me in app/views/words/index.html.erb</p>
+<h1>単語一覧</h1>
+
+<% @words.each do |word| %>
+
+  <p>スペイン語 単語</p>
+  <span><%= word.spanish %></span>
+  
+  <p>日本語 単語</p>
+  <span><%= word.japanese %></span>
+  
+  <p>スペイン語 例文</p>
+  <span><%= word.spanish_example %></span>
+
+  <p>日本語 例文</p>
+  <span><%= word.japanese_example %></span>
+  
+　<!--<p>user image</p>-->
+  <!--<p>user name</p>-->
+  
+  <!--<p>いいね数</p>-->
+  <!--<p>コメント数</p>-->
+  
+  <%= link_to "編集", edit_word_path(@word.id) %>
+  <%= link_to "削除", word_path(@word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  <!--自分のだけ-->
+
+
+<% end %>

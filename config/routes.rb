@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
-  root to: "homes#top"
   devise_for :users
-  
-  resources :articles, only: [:new, :create, :index, :show, :destroy] do
+  root to: "homes#top"
+
+  resources :articles do
     resource :favorites, only: [:create, :destroy]
     resources :article_comments, only: [:create, :destroy]
   end
   
-  resources :words, only: [:new, :create, :index, :destroy] do
+  resources :words, only: [:new, :create, :index, :edit, :update, :destroy] do
     resource :favorites, only: [:create, :destroy]
     resources :article_comments, only: [:create, :destroy]
   end
   
-  resources :questions, only: [:new, :create, :index, :show, :destroy] do
+  resources :questions do
     resources :article_comments, only: [:create, :destroy]
     resources :article_answers, only: [:create, :destroy] do
         resource :favorites, only: [:create, :destroy]

@@ -1,2 +1,29 @@
-<h1>Articles#show</h1>
-<p>Find me in app/views/articles/show.html.erb</p>
+<h2>タイトル</h2>
+<p><%= @article.title %></p>
+
+
+<p>user image</p>
+<p>user name</p>
+
+<p>いいね数</p>
+<p>投稿日時</p>
+
+
+
+<h2>本文</h2>
+<p><%= @article.body %></p>
+
+
+<p>タグ</p>
+
+
+<p>いいねボタン</p>
+<p>いいね数</p>
+
+<p>編集、下書きに戻す、削除ボタン（自分の時）</p>
+<%= link_to "編集", edit_article_path(@article.id) %>
+<%= link_to "削除", article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+<p>コメント入力</p>
+<p>コメント一覧</p>
+<p>送信ボタン</p>
