@@ -6,8 +6,10 @@ class QuestionsController < ApplicationController
   def create
     question = Question.new(question_params)
     if question.save
+      flash[:notice] = "投稿に成功しました。"
     　redirect_to questions_path
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
   end

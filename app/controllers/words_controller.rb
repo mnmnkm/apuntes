@@ -6,8 +6,10 @@ class WordsController < ApplicationController
   def create
     word = Word.new(word_params)
     if word.save
+      flash[:notice] = "投稿に成功しました。"
     　redirect_to words_path
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
   end

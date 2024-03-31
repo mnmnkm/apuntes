@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <main>
+    <% flash.each do |message_type, message| %>
+      <div class="flash-message <%= message_type %>"><%= message %></div>
+    <% end %>    
+    <%= yield %>
+  　</main>
     <header>
       <% if user_signed_in? %>
         <li>
