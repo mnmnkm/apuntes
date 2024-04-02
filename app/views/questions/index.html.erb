@@ -10,12 +10,12 @@
   
   <!--<p>未解決/解決済</p>-->
   
-  <!--<p>回答数</p>-->
+  <p><%= link_to "#{question.question_answers.count} 回答", question_path(question.id) %></p>
+
   
-  <!--<p>user image</p>-->
-  <!--<p>user name</p>-->
-  
-  <!--<p>コメント数</p>-->
-  
-  
+  <p>投稿ユーザー画像：<%= image_tag question.user.get_profile_image(100,100) %></p>
+  <p>ユーザーネーム：<%= question.user.name %></p>
+  <p><%= link_to "#{question.question_comments.count} コメント", question_path(question.id) %></p>
+
+
 <% end %>

@@ -2,11 +2,11 @@
 <p><%= @article.title %></p>
 
 
-<p>user image</p>
-<p>user name</p>
+<p>投稿ユーザー画像：<%= image_tag @article.user.get_profile_image(100,100) %></p>
+<p>ユーザーネーム：<%= @article.user.name %></p>
 
 <p>いいね数</p>
-<p>投稿日時</p>
+<p>投稿日：<%= @article.created_at.strftime('%Y/%m/%d') %></p>
 
 
 
@@ -20,10 +20,28 @@
 <p>いいねボタン</p>
 <p>いいね数</p>
 
+
+<% if @article.user == current_user %>
 <p>編集、下書きに戻す、削除ボタン（自分の時）</p>
 <%= link_to "編集", edit_article_path(@article.id) %>
 <%= link_to "削除", article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<% end %>
 
-<p>コメント入力</p>
-<p>コメント一覧</p>
-<p>送信ボタン</p>
+
+<div>
+  <p>コメント件数：<%= @article.article_comments.count %></p>
+  <% @article.article_comments.each do |article_comment| %>
+    <p><%= image_tag article_comment.user.get_profile_image(100,100) %></p>
+    <%= article_comment.user.name %>
+    <%= article_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if article_comment.user == current_user %>
+      <%= link_to "削除", article_article_comment_path(article_comment.article, article_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@article, @article_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

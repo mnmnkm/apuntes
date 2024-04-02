@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
   
   def create
     article = Article.new(article_params)
+    article.user_id = current_user.id
     if article.save
       flash[:notice] = "投稿に成功しました。"
     　redirect_to articles_path
@@ -21,6 +22,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @article_comment = ArticleComment.new
   end
 
   def edit

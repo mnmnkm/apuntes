@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_31_152511) do
+ActiveRecord::Schema.define(version: 2024_04_02_151814) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,10 +40,34 @@ ActiveRecord::Schema.define(version: 2024_03_31_152511) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "article_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "article_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.boolean "is_active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_answers", force: :cascade do |t|
+    t.text "answer"
+    t.integer "user_id"
+    t.integer "question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -67,6 +91,14 @@ ActiveRecord::Schema.define(version: 2024_03_31_152511) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "word_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "word_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "words", force: :cascade do |t|

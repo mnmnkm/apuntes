@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   
   def create
     question = Question.new(question_params)
+    question.user_id = current_user.id
     if question.save
       flash[:notice] = "投稿に成功しました。"
     　redirect_to questions_path
@@ -20,6 +21,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @question_comment = QuestionComment.new
+    @question_answer = QuestionAnswer.new
   end
 
   def edit

@@ -11,11 +11,12 @@
   <!--<span>本文一部表示したい</span>-->
   
   
-  <!--<p>user image</p>-->
-  <!--<p>user name</p>-->
-  
+  <p>投稿ユーザー画像：<%= image_tag article.user.get_profile_image(100,100) %></p>
+  <p>ユーザーネーム：<%= article.user.name %></p>
+
   <!--<p>いいね数</p>-->
   <!--<p>コメント数</p>-->
+  <p><%= link_to "#{article.article_comments.count} コメント", article_path(article.id) %></p>
 
   
 <% end %>

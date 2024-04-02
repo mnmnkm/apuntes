@@ -5,6 +5,7 @@ class WordsController < ApplicationController
   
   def create
     word = Word.new(word_params)
+    word.user_id = current_user.id
     if word.save
       flash[:notice] = "投稿に成功しました。"
     　redirect_to words_path
@@ -17,6 +18,7 @@ class WordsController < ApplicationController
   def index
     @words = Word.all
     # @word = Word.find(params[:id])
+    @word_comment = WordComment.new
   end
   
   def edit

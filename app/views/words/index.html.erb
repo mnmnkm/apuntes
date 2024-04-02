@@ -14,15 +14,34 @@
   <p>日本語 例文</p>
   <span><%= word.japanese_example %></span>
   
-　<!--<p>user image</p>-->
-  <!--<p>user name</p>-->
-  
+　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(100,100) %></p>
+　<p>ユーザーネーム：<%= word.user.name %></p>
+
   <!--<p>いいね数</p>-->
-  <!--<p>コメント数</p>-->
-  
-  <%= link_to "編集", edit_word_path(@word.id) %>
-  <%= link_to "削除", word_path(@word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-  <!--自分のだけ-->
+
+  <div>
+    <p>コメント件数：<%= @word.word_comments.count %></p>
+    <% @word.word_comments.each do |word_comment| %>
+      <p><%= image_tag word_comment.user.get_profile_image(100,100) %></p>
+      <%= word_comment.user.name %>
+      <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+      <% if word_comment.user == current_user %>
+        <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_with model: [@word, @word_comment] do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+  </div>
+    
+    
+    <% if @word.user == current_user %>
+      <%= link_to "編集", edit_word_path(@word.id) %>
+      <%= link_to "削除", word_path(@word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <% end %>
 
 
 <% end %>
