@@ -7,12 +7,14 @@ class User < ApplicationRecord
          
   has_many :articles, dependent: :destroy
   has_many :article_comments, dependent: :destroy
+  has_many :article_favorites, dependent: :destroy
   has_many :words, dependent: :destroy
   has_many :word_comments, dependent: :destroy
+  has_many :word_favorites, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :question_comments, dependent: :destroy
   has_many :question_answers, dependent: :destroy
-
+  
          
   has_one_attached :profile_image
   

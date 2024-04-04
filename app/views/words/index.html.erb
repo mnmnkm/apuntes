@@ -17,7 +17,21 @@
 　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(100,100) %></p>
 　<p>ユーザーネーム：<%= word.user.name %></p>
 
-  <!--<p>いいね数</p>-->
+  <div>
+    <% if @word.favorited_by?(current_user) %>
+    <p>
+      <%= link_to word_favorite_path(@word), method: :delete do %>
+        ♥<%= @word.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to word_favorite_path(@word), method: :post do %>
+        ♡<%= @word.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+  </div>
 
   <div>
     <p>コメント件数：<%= @word.word_comments.count %></p>

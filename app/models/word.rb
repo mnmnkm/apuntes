@@ -2,7 +2,7 @@ class Word < ApplicationRecord
     
   belongs_to :user
   has_many :word_comments, dependent: :destroy
-#   has_many :favorites, dependent: :destroy
+  has_many :favorites, dependent: :destroy
     
   validates :spanish, presence: true
   validates :japanese, presence: true
@@ -12,5 +12,9 @@ class Word < ApplicationRecord
 #   def favorited_by?(user)
 #   favorites.where(user_id: user.id).exists?
 #   end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
 
 end
