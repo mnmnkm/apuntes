@@ -2,41 +2,68 @@
 <html>
   <head>
     <title>Apuntes</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <script src="https://kit.fontawesome.com/c76ac06ae3.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <!--<a class="navbar-brand p-3" href="/"> %= image_tag('logo.png') %></a>-->
+          
+          <form class="form-inline">
+           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+            　<li class="nav-item">
+            　  <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
+            　</li>
+              <li class="nav-item">
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 投稿フォーム
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              　 <%= link_to '記事', new_article_path, class: 'nav-link text-dark' %>
+              　 <%= link_to '単語', new_word_path, class: 'nav-link text-dark' %>
+              　  <%= link_to '質問', new_question_path, class: 'nav-link text-dark' %>
+              　</div>
+            　</li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
     <main>
     <% flash.each do |message_type, message| %>
       <div class="flash-message <%= message_type %>"><%= message %></div>
     <% end %>    
     <%= yield %>
   　</main>
-    <header>
-      <% if user_signed_in? %>
-      　<li>
-      　　<%= link_to 'マイページ', user_path(current_user.id) %>
-      　</li>
-        <li>
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-        </li>
-        <li>
-        　<%= link_to '投稿フォーム', new_article_path %>
-      　</li>
-      <% else %>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
-    </header>
-    <%= yield %>
+  　
   </body>
 </html>

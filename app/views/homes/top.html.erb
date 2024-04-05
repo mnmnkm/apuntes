@@ -1,2 +1,69 @@
 <h1>Topページ　投稿一覧</h1>
 
+<h1>記事一覧</h1>
+<% @articles.each do |article| %>
+  <span>
+    <%= link_to article.title, article_path(article.id) %>
+  </span>
+  <p><%= image_tag article.user.get_profile_image %></p>
+  <p><%= article.user.name %></p>
+  <div>
+  <% if @article.favorited_by?(current_user) %>
+    <p>
+      <%= link_to article_favorite_path(@article), method: :delete do %>
+        ♥<%= @article.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to article_favorite_path(@article), method: :post do %>
+        ♡<%= @article.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+  </div>
+  <div>
+    <p>コメント件数：<%= @article.article_comments.count %></p>
+  </div>
+  <p><%= link_to "#{article.article_comments.count} コメント", article_path(article.id) %></p>
+<% end %>
+
+
+<h1>単語一覧</h1>
+<% @words.each do |word| %>
+  <span><%= word.spanish %></span>
+  <span><%= word.japanese %></span>
+  <span><%= word.spanish_example %></span>
+  <span><%= word.japanese_example %></span>
+　<p><%= image_tag word.user.get_profile_image(100,100) %></p>
+　<p><%= word.user.name %></p>
+  <div>
+    <% if @word.favorited_by?(current_user) %>
+    <p>
+      <%= link_to word_favorite_path(@word), method: :delete do %>
+        ♥<%= @word.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to word_favorite_path(@word), method: :post do %>
+        ♡<%= @word.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% end %>
+  </div>
+  <div>
+    <p>コメント件数：<%= @word.word_comments.count %></p>
+  </div>
+<% end %>
+
+
+<h1>質問一覧</h1>
+<% @questions.each do |question| %>
+  <span><%= question.title %></span>
+  <span>
+    <%= link_to question.title, question_path(question.id) %>  
+  </span>
+  <!--<p>未解決/解決済</p>-->
+  <!--<p>回答数</p>-->
+<% end %>

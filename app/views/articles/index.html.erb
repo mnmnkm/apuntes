@@ -14,8 +14,26 @@
   <p>投稿ユーザー画像：<%= image_tag article.user.get_profile_image(100,100) %></p>
   <p>ユーザーネーム：<%= article.user.name %></p>
 
-  <!--<p>いいね数</p>-->
-  <!--<p>コメント数</p>-->
+  <div>
+  <% if @article.favorited_by?(current_user) %>
+    <p>
+      <%= link_to article_favorite_path(@article), method: :delete do %>
+        ♥<%= @article.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to article_favorite_path(@article), method: :post do %>
+        ♡<%= @article.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+  </div>
+  
+  <div>
+    <p>コメント件数：<%= @article.article_comments.count %></p>
+  </div>
+  
   <p><%= link_to "#{article.article_comments.count} コメント", article_path(article.id) %></p>
 
   

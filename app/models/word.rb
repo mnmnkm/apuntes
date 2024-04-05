@@ -2,7 +2,7 @@ class Word < ApplicationRecord
     
   belongs_to :user
   has_many :word_comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :word_favorites, dependent: :destroy
     
   validates :spanish, presence: true
   validates :japanese, presence: true

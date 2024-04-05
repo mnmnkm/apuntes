@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     article.user_id = current_user.id
     if article.save
       flash[:notice] = "投稿に成功しました。"
-    　redirect_to articles_path
+      redirect_to articles_path
     else
       flash.now[:alert] = "投稿に失敗しました。"
       render :new
