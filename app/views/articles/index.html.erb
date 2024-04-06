@@ -15,23 +15,23 @@
   <p>ユーザーネーム：<%= article.user.name %></p>
 
   <div>
-  <% if @article.favorited_by?(current_user) %>
+  <% if article.favorited_by?(current_user) %>
     <p>
-      <%= link_to article_favorite_path(@article), method: :delete do %>
-        ♥<%= @article.favorites.count %> いいね
+      <%= link_to article_favorites_path(article), method: :delete do %>
+        ♥<%= article.article_favorites.count %> いいね
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to article_favorite_path(@article), method: :post do %>
-        ♡<%= @article.favorites.count %> いいね
+      <%= link_to article_favorites_path(article), method: :post do %>
+        ♡<%= article.article_favorites.count %> いいね
       <% end %>
     </p>
   <% end %>
   </div>
   
   <div>
-    <p>コメント件数：<%= @article.article_comments.count %></p>
+    <p>コメント件数：<%= article.article_comments.count %></p>
   </div>
   
   <p><%= link_to "#{article.article_comments.count} コメント", article_path(article.id) %></p>

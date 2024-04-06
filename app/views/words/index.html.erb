@@ -2,40 +2,40 @@
 
 <% @words.each do |word| %>
 
-  <p>スペイン語 単語</p>
-  <span><%= word.spanish %></span>
+  <!--<p>スペイン語 単語</p>-->
+  <h4><span><%= word.spanish %></span></h4>
+  ：
+  <!--<p>日本語 単語</p>-->
+  <h5><span><%= word.japanese %></span></h5><br>
   
-  <p>日本語 単語</p>
-  <span><%= word.japanese %></span>
-  
-  <p>スペイン語 例文</p>
-  <span><%= word.spanish_example %></span>
+  <!--<p>スペイン語 例文</p>-->
+  <span><%= word.spanish_example %></span><br>
 
-  <p>日本語 例文</p>
+  <!--<p>日本語 例文</p>-->
   <span><%= word.japanese_example %></span>
   
 　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(100,100) %></p>
 　<p>ユーザーネーム：<%= word.user.name %></p>
 
   <div>
-    <% if @word.favorited_by?(current_user) %>
+    <% if word.favorited_by?(current_user) %>
     <p>
-      <%= link_to word_favorite_path(@word), method: :delete do %>
-        ♥<%= @word.favorites.count %> いいね
+      <%= link_to word_favorites_path(word), method: :delete do %>
+        ♥<%= word.word_favorites.count %> いいね
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to word_favorite_path(@word), method: :post do %>
-        ♡<%= @word.favorites.count %> いいね
+      <%= link_to word_favorites_path(word), method: :post do %>
+        ♡<%= word.word_favorites.count %> いいね
       <% end %>
     </p>
     <% end %>
   </div>
 
   <div>
-    <p>コメント件数：<%= @word.word_comments.count %></p>
-    <% @word.word_comments.each do |word_comment| %>
+    <p>コメント件数：<%= word.word_comments.count %></p>
+    <% word.word_comments.each do |word_comment| %>
       <p><%= image_tag word_comment.user.get_profile_image(100,100) %></p>
       <%= word_comment.user.name %>
       <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
@@ -45,17 +45,15 @@
     <% end %>
   </div>
   <div>
-    <%= form_with model: [@word, @word_comment] do |f| %>
+    <%= form_with model: [word, @word_comment] do |f| %>
       <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
       <%= f.submit "送信する" %>
     <% end %>
   </div>
     
     
-    <% if @word.user == current_user %>
-      <%= link_to "編集", edit_word_path(@word.id) %>
-      <%= link_to "削除", word_path(@word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <% if word.user == current_user %>
+      <%= link_to "編集", edit_word_path(word.id) %>
+      <%= link_to "削除", word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
     <% end %>
-
-
 <% end %>
