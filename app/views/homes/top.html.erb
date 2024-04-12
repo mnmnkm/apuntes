@@ -38,22 +38,22 @@
 　<p><%= image_tag word.user.get_profile_image(100,100) %></p>
 　<p><%= word.user.name %></p>
   <div>
-    <% if @word.favorited_by?(current_user) %>
+    <% if word.favorited_by?(current_user) %>
     <p>
-      <%= link_to word_favorite_path(@word), method: :delete do %>
-        ♥<%= @word.favorites.count %> いいね
+      <%= link_to word_favorites_path(word), method: :delete do %>
+        ♥<%= word.word_favorites.count %> いいね
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to word_favorite_path(@word), method: :post do %>
-        ♡<%= @word.favorites.count %> いいね
+      <%= link_to word_favorites_path(word), method: :post do %>
+        ♡<%= word.word_favorites.count %> いいね
       <% end %>
     </p>
     <% end %>
   </div>
   <div>
-    <p>コメント件数：<%= @word.word_comments.count %></p>
+    <p>コメント件数：<%= word.word_comments.count %></p>
   </div>
 <% end %>
 

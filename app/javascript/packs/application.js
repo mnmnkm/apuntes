@@ -13,6 +13,9 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
 
+require("trix")
+require("@rails/actiontext")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

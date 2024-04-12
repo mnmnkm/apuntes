@@ -2,13 +2,16 @@
 
 <%= form_with model: @question do |f| %>
 
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
-  
-  <h4>本文</h4>
-  <%= f.text_area :body %>
+　<!--<h4>タイトル</h4>-->
+  <%= f.text_field :title, placeholder: "タイトル" %>
+
+　<!--<h4>本文</h4>-->
+　<%= f.text_area :body, placeholder: "本文" %>
+
   
   <!--解決/未解決-->
+  <%= f.radio_button :is_active, "true" %>解決
+  <%= f.radio_button :is_active, "false" %>未解決
     
   <%= f.submit '保存' %>
   

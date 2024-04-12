@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     # 投稿一覧（topページ）
   end
   
+  def article_params
+      params.require(:article).permit(:title, :content)
+  end
+  
   protected
 
   def configure_permitted_parameters

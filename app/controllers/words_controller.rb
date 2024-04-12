@@ -6,12 +6,25 @@ class WordsController < ApplicationController
   def create
     word = Word.new(word_params)
     word.user_id = current_user.id
-    if word.save
-      flash[:notice] = "投稿に成功しました。"
-      redirect_to words_path
+    
+    if params[:post]
+      word.is_active = false
+      if word.save(context: :publicize)
+        flash[:notice] = "単語を公開しました。"
+        redirect_to words_path
+      else
+        flash.now[:alert] = "単語を公開できませんでした。"
+        render :new
+      end
     else
-      flash.now[:alert] = "投稿に失敗しました。"
-      render :new
+      word.is_active = true
+      if word.save(context: :publicize)
+        flash[:notice] = "単語を下書き保存しました。"
+        redirect_to user_path(current_user.id)
+      else
+        flash.now[:alert] = "単語を下書き保存できませんでした。"
+        render :new
+      end
     end
   end
 
@@ -26,9 +39,41 @@ class WordsController < ApplicationController
   end
   
   def update
+    @user = current_user
     word = Word.find(params[:id])
     word.update(word_params)
     redirect_to words_path 
+    
+    word.assign_attributes(word_params)
+   
+    if params[:publicize_draft]
+      word.is_active = false
+      if word.save(context: :publicize)
+        flash[:notice] = "単語を公開しました。"
+        redirect_to words_path
+      else
+        word.is_active = true
+        render :edit, alert: "単語を公開できませんでした。"
+      end
+    elsif params[:update_word]
+      word.is_active = false
+      if word.save(context: :publicize)
+        flash[:notice] = "単語を更新しました。"
+        redirect_to words_path
+      else
+        render :edit, alert: "単語を更新できませんでした。"
+      end
+    else
+      word.is_active = true
+      if word.update(word_params)
+        flash[:notice] = "下書き単語を更新しました。"
+        redirect_to user_path(current_user.id)
+      else
+        render :edit, alert: "下書き単語を更新できませんでした。"
+      end
+    end
+
+  
   end
   
   def destroy

@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     question.user_id = current_user.id
     if question.save
       flash[:notice] = "投稿に成功しました。"
-    　redirect_to questions_path
+      redirect_to questions_path
     else
       flash.now[:alert] = "投稿に失敗しました。"
       render :new
@@ -17,6 +17,9 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    # if params[:target] == "active_onliy"
+    #   @questions = Question.where(is_active: true) # 公開のデータだけ取得
+    # end
   end
 
   def show
@@ -44,6 +47,6 @@ class QuestionsController < ApplicationController
   
   private
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :is_active)
   end
 end

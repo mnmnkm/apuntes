@@ -6,14 +6,26 @@ class ArticlesController < ApplicationController
   def create
     article = Article.new(article_params)
     article.user_id = current_user.id
-    if article.save
-      flash[:notice] = "投稿に成功しました。"
-      redirect_to articles_path
-    else
-      flash.now[:alert] = "投稿に失敗しました。"
-      render :new
-    end
     
+    if params[:post]
+      article.is_active = false
+      if article.save(context: :publicize)
+        flash[:notice] = "記事を公開しました。"
+        redirect_to articles_path
+      else
+        flash.now[:alert] = "記事を公開できませんでした。"
+        render :new
+      end
+    else
+      article.is_active = true
+      if article.save(context: :publicize)
+        flash[:notice] = "記事を下書き保存しました。"
+        redirect_to user_path(current_user.id)
+      else
+        flash.now[:alert] = "記事を下書き保存できませんでした。"
+        render :new
+      end
+    end
   end
 
   def index
@@ -33,6 +45,33 @@ class ArticlesController < ApplicationController
     article = Article.find(params[:id])
     article.update(article_params)
     redirect_to articles_path 
+    
+    if params[:publicize_draft]
+      article.is_active = false
+      if article.save(context: :publicize)
+        flash[:notice] = "記事を公開しました。"
+        redirect_to articles_path
+      else
+        article.is_active = true
+        render :edit, alert: "記事を公開できませんでした。"
+      end
+    elsif params[:update_article]
+      article.is_active = false
+      if article.save(context: :publicize)
+        flash[:notice] = "記事を更新しました。"
+        redirect_to articles_path
+      else
+        render :edit, alert: "記事を更新できませんでした。"
+      end
+    else
+      article.is_active = true
+      if article.update(article_params)
+        flash[:notice] = "下書き記事を更新しました。"
+        redirect_to user_path(current_user.id)
+      else
+        render :edit, alert: "下書き記事を更新できませんでした。"
+      end
+    end
   end
   
   def destroy

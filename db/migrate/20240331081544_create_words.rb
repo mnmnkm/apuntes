@@ -6,7 +6,9 @@ class CreateWords < ActiveRecord::Migration[6.1]
       t.string :japanese
       t.text :spanish_example
       t.text :japanese_example
-      t.boolean :is_active, null: false, default: true
+      # t.boolean :is_active, null: false, default: true
+      t.integer :status, default: 0, null: false
+      
       t.timestamps
     end
   end

@@ -1,3 +1,15 @@
+<body>
+  <div class="row">
+    <div class="col-2">
+      <%= render'layouts/sidebar' %>
+    </div>
+    <div class="col-8">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+
+
 <h1>単語一覧</h1>
 
 <% @words.each do |word| %>
@@ -14,7 +26,7 @@
   <!--<p>日本語 例文</p>-->
   <span><%= word.japanese_example %></span>
   
-　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(100,100) %></p>
+　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(50,50) %></p>
 　<p>ユーザーネーム：<%= word.user.name %></p>
 
   <div>
@@ -36,7 +48,7 @@
   <div>
     <p>コメント件数：<%= word.word_comments.count %></p>
     <% word.word_comments.each do |word_comment| %>
-      <p><%= image_tag word_comment.user.get_profile_image(100,100) %></p>
+      <p><%= image_tag word_comment.user.get_profile_image(50,50) %></p>
       <%= word_comment.user.name %>
       <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
       <% if word_comment.user == current_user %>
@@ -46,7 +58,7 @@
   </div>
   <div>
     <%= form_with model: [word, @word_comment] do |f| %>
-      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメント入力" %>
       <%= f.submit "送信する" %>
     <% end %>
   </div>

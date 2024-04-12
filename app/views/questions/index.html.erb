@@ -1,6 +1,25 @@
+<body>
+  <div class="row">
+    <div class="col-2">
+      <%= render'layouts/sidebar' %>
+    </div>
+    <div class="col-8">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+
 <h1>質問一覧</h1>
 
 <% @questions.each do |question| %>
+
+  <p>
+    <% if question.is_active == true %>
+      解決
+    <% else %>
+      未解決
+    <% end %>
+  </p>
 
   <p>タイトル</p>
   <span><%= question.title %></span>
