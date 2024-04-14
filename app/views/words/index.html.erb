@@ -23,11 +23,11 @@
             <div class="d-flex">
               <dt class="col">
                 <!--<p>スペイン語 例文</p>-->
-                <span><%= word.spanish_example %></span><br>
+                <span><%= simple_format(word.spanish_example) %></span><br>
               </dt>
               <dd class="col">
                 <!--<p>日本語 例文</p>-->
-                <span><%= word.japanese_example %></span>
+                <span><%= simple_format(word.japanese_example) %></span>
               </dd>
             </div>
           </dl>
@@ -41,8 +41,13 @@
             <div class="d-flex">
               <div class="mr-2">
                 <% if word.user == current_user %>
-                  <%= link_to "編集", edit_word_path(word.id) %>
-                  <%= link_to "削除", word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                  <%= link_to edit_word_path(word.id) do %>
+                    <!--<i class="fa-regular fa-pen-to-square"></i>-->
+                    <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                    <i class="fa-regular fa-trash-can"></i>
+                  <% end %>
                 <% end %>
               </div>
 
@@ -50,20 +55,22 @@
                 <% if word.favorited_by?(current_user) %>
                 <p>
                   <%= link_to word_favorites_path(word), method: :delete do %>
-                    ♥ <%= word.word_favorites.count %> 
+                    <i class="fa-solid fa-heart"></i>  
                   <% end %>
+                  <%= word.word_favorites.count %>
                 </p>
                 <% else %>
                 <p>
                   <%= link_to word_favorites_path(word), method: :post do %>
-                    ♡ <%= word.word_favorites.count %> 
+                    <i class="fa-regular fa-heart"></i> 
                   <% end %>
+                  <%= word.word_favorites.count %> 
                 </p>
                 <% end %>
               </div>
             
               <div class="mr-2">
-                <p>💬 <%= word.word_comments.count %></p>
+                <p><i class="fa-regular fa-comment"></i> <%= word.word_comments.count %></p>
               </div>
             </div>
           </div>

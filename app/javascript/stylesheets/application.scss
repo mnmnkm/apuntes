@@ -4,6 +4,8 @@
 
 #sidebar {
   border-right: solid 1px #ccc;
+  position: fixed;
+  height: 100%;
 }
 
 .list-style-none {
@@ -35,3 +37,14 @@ section.article_sections:nth-child(2n){
 }
 */
 
+header {
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 100;
+}
+
+main {
+    margin-top: 78px;
+    margin-left: 250px;
+}

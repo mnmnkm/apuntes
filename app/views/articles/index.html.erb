@@ -26,8 +26,12 @@
             <div class="d-flex">
               <div class="mr-2">
                 <% if article.user == current_user %>
-                  <%= link_to "編集", edit_article_path(article.id) %>
-                  <%= link_to "削除", article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                  <%= link_to edit_article_path(article.id) do %>
+                    <i class="fa-solid fa-pencil"></i>
+                  <% end %>
+                  <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                    <i class="fa-regular fa-trash-can"></i>
+                  <% end %>
                 <% end %>
               </div>
   
@@ -35,20 +39,22 @@
                 <% if article.favorited_by?(current_user) %>
                 <p>
                   <%= link_to article_favorites_path(article), method: :delete do %>
-                    ♥ <%= article.article_favorites.count %> 
+                    <i class="fa-solid fa-heart"></i>  
                   <% end %>
+                  <%= article.article_favorites.count %>
                 </p>
                 <% else %>
                 <p>
                   <%= link_to article_favorites_path(article), method: :post do %>
-                    ♡ <%= article.article_favorites.count %> 
+                    <i class="fa-regular fa-heart"></i>  
                   <% end %>
+                  <%= article.article_favorites.count %>
                 </p>
                 <% end %>
               </div>
             
               <div class="mr-2">
-                <p>💬 <%= article.article_comments.count %></p>
+                <p><i class="fa-regular fa-comment"></i> <%= article.article_comments.count %></p>
               </div>
             </div>
           </div>
@@ -64,10 +70,8 @@
     
     for(let example of examples){
       let article_body = example.getElementsByTagName('div')[0];
-      console.log(article_body.textContent)
-      if (article_body.textContent.length > max_length){
-        article_body.innerHTML = example.textContent.slice(0,10)+'...';
-      }
+      // console.log(article_body.textContent)
+      article_body.innerHTML = example.textContent.slice(0,max_length)+'...';
     }
   })
 </script>
