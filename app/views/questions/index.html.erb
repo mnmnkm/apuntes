@@ -1,40 +1,43 @@
-<body>
-  <div class="row">
-    <div class="col-2">
-      <%= render'layouts/sidebar' %>
+<div class="d-flex">
+  <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+  <div class="col-10">
+
+    <div class="my-3">
+      <h1>preguntas</h1>
     </div>
-    <div class="col-8">
-      <%= yield %>
+    
+    <% @questions.each do |question| %>
+    <div class="d-flex preguntas_article">
+      <div class='px-4 py-2'>
+        <p>
+        <% if question.is_active == true %>
+          解決
+        <% else %>
+          未解決
+        <% end %>
+        </p>
+        <!--<p>未解決/解決済</p>-->
+        <p><%= link_to "#{question.question_answers.count} 回答", question_path(question.id) %></p>
+      </div>
+
+      <div class='flex-grow-1'>
+        <span>
+          <%= link_to question.title, question_path(question.id) %>  
+        </span>
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- user icon start -->
+          <div class="d-flex align-items-center">
+                <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                <p><%= question.user.name %></p>
+          </div>
+          <!-- user icon end -->
+          <div class="mr-2">
+            <p>💬 <%= question.question_comments.count %></p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</body>
-
-<h1>質問一覧</h1>
-
-<% @questions.each do |question| %>
-
-  <p>
-    <% if question.is_active == true %>
-      解決
-    <% else %>
-      未解決
+    <hr>
     <% end %>
-  </p>
 
-  <p>タイトル</p>
-  <span><%= question.title %></span>
-  <span>
-    <%= link_to question.title, question_path(question.id) %>  
- </span>
-  
-  <!--<p>未解決/解決済</p>-->
-  
-  <p><%= link_to "#{question.question_answers.count} 回答", question_path(question.id) %></p>
-
-  
-  <p>投稿ユーザー画像：<%= image_tag question.user.get_profile_image(100,100) %></p>
-  <p>ユーザーネーム：<%= question.user.name %></p>
-  <p><%= link_to "#{question.question_comments.count} コメント", question_path(question.id) %></p>
-
-
-<% end %>
+</div>

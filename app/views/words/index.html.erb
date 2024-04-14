@@ -1,71 +1,95 @@
-<body>
-  <div class="row">
-    <div class="col-2">
-      <%= render'layouts/sidebar' %>
-    </div>
-    <div class="col-8">
-      <%= yield %>
-    </div>
-  </div>
-</body>
-
-
-<h1>単語一覧</h1>
-
-<% @words.each do |word| %>
-
-  <!--<p>スペイン語 単語</p>-->
-  <h4><span><%= word.spanish %></span></h4>
-  ：
-  <!--<p>日本語 単語</p>-->
-  <h5><span><%= word.japanese %></span></h5><br>
-  
-  <!--<p>スペイン語 例文</p>-->
-  <span><%= word.spanish_example %></span><br>
-
-  <!--<p>日本語 例文</p>-->
-  <span><%= word.japanese_example %></span>
-  
-　<p>投稿ユーザー画像：<%= image_tag word.user.get_profile_image(50,50) %></p>
-　<p>ユーザーネーム：<%= word.user.name %></p>
-
-  <div>
-    <% if word.favorited_by?(current_user) %>
-    <p>
-      <%= link_to word_favorites_path(word), method: :delete do %>
-        ♥<%= word.word_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to word_favorites_path(word), method: :post do %>
-        ♡<%= word.word_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% end %>
-  </div>
-
-  <div>
-    <p>コメント件数：<%= word.word_comments.count %></p>
-    <% word.word_comments.each do |word_comment| %>
-      <p><%= image_tag word_comment.user.get_profile_image(50,50) %></p>
-      <%= word_comment.user.name %>
-      <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-      <% if word_comment.user == current_user %>
-        <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
-      <% end %>
-    <% end %>
-  </div>
-  <div>
-    <%= form_with model: [word, @word_comment] do |f| %>
-      <%= f.text_area :comment, rows: '5', placeholder: "コメント入力" %>
-      <%= f.submit "送信する" %>
-    <% end %>
-  </div>
+<div class = "d-flex">
+  <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+  <div class="col-10">
     
+    <div class="py-3">
+     <h2>palabras</h2>
+    </div>
     
-    <% if word.user == current_user %>
-      <%= link_to "編集", edit_word_path(word.id) %>
-      <%= link_to "削除", word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-    <% end %>
-<% end %>
+    <% @words.each do |word| %>
+      <div>
+        <div>
+          <dl>
+            <div class="d-flex">
+              <dt class="col">
+                <!--<p>スペイン語 単語</p>-->
+                <h4><span><%= word.spanish %></span></h4>
+              </dt>
+              <dd class="col">
+                <!--<p>日本語 単語</p>-->
+                <h5><span><%= word.japanese %></span></h5><br>
+              </dd>
+            </div>
+            <div class="d-flex">
+              <dt class="col">
+                <!--<p>スペイン語 例文</p>-->
+                <span><%= word.spanish_example %></span><br>
+              </dt>
+              <dd class="col">
+                <!--<p>日本語 例文</p>-->
+                <span><%= word.japanese_example %></span>
+              </dd>
+            </div>
+          </dl>
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- user icon start -->
+            <div class="d-flex align-items-center">
+              <p><%= image_tag word.user.get_profile_image(60,60) %></p>
+              <p><%= word.user.name %></p>
+            </div>
+            <!-- user icon end -->
+            <div class="d-flex">
+              <div class="mr-2">
+                <% if word.user == current_user %>
+                  <%= link_to "編集", edit_word_path(word.id) %>
+                  <%= link_to "削除", word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                <% end %>
+              </div>
+
+              <div class="mr-2">
+                <% if word.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to word_favorites_path(word), method: :delete do %>
+                    ♥ <%= word.word_favorites.count %> 
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to word_favorites_path(word), method: :post do %>
+                    ♡ <%= word.word_favorites.count %> 
+                  <% end %>
+                </p>
+                <% end %>
+              </div>
+            
+              <div class="mr-2">
+                <p>💬 <%= word.word_comments.count %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- comment start -->
+        <div>
+          <% word.word_comments.each do |word_comment| %>
+            <p><%= image_tag word_comment.user.get_profile_image(50,50) %></p>
+            <%= word_comment.user.name %>
+            <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+            <% if word_comment.user == current_user %>
+              <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
+            <% end %>
+          <% end %>
+          <div>
+            <%= form_with model: [word, @word_comment] do |f| %>
+              <div class="d-flex">
+                <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
+                <%= f.submit "送信する", class: "align-self-end ml-3" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <!-- comment end -->
+      </div>
+      <hr>
+    <% end %><!-- @words.each end -->
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <h1>Topページ</h1>
 
-<h1>articulos</h1>
+<h2><%= link_to "articulos", articles_path %></h2>
 <% @articles.each do |article| %>
   <span>
     <%= link_to article.title, article_path(article.id) %>
@@ -29,7 +29,7 @@
 <% end %>
 
 
-<h1>palabras</h1>
+<h2><%= link_to "palabras", words_path %></h2>
 <% @words.each do |word| %>
   <span><%= word.spanish %></span>
   <span><%= word.japanese %></span>
@@ -58,7 +58,7 @@
 <% end %>
 
 
-<h1>preguntas</h1>
+<h2><%= link_to "preguntas", questions_path %></h2>
 <% @questions.each do |question| %>
   <span><%= question.title %></span>
   <span>

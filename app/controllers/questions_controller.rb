@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.all
+    @questions = Question.all.order(id: :desc)
     # if params[:target] == "active_onliy"
     #   @questions = Question.where(is_active: true) # 公開のデータだけ取得
     # end

@@ -29,7 +29,7 @@ class WordsController < ApplicationController
   end
 
   def index
-    @words = Word.all
+    @words = Word.all.order(id: :desc)
     # @word = Word.find(params[:id])
     @word_comment = WordComment.new
   end

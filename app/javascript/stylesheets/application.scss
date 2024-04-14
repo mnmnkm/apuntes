@@ -1,1 +1,37 @@
 @use '~bootstrap/scss/bootstrap';
+
+.display-block { display: block; }
+
+#sidebar {
+  border-right: solid 1px #ccc;
+}
+
+.list-style-none {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+  
+  & a {
+     color: darkgray;
+  }
+}
+
+
+section.article_sections:nth-child(2n){
+    border-right:none !important;
+}
+.trix-content{
+    min-height: 3rem !important;
+}
+/*
+.example_wrap{
+    overflow: hidden;
+    width: 100px;
+}
+.example{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+*/
+
