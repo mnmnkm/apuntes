@@ -1,6 +1,6 @@
 <div class = "d-flex">
   <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
-  <div class="col-10">
+  <div id="main" class="col-10">
     
     <div class="py-3">
      <h2>palabras</h2>
@@ -51,22 +51,8 @@
                 <% end %>
               </div>
 
-              <div class="mr-2">
-                <% if word.favorited_by?(current_user) %>
-                <p>
-                  <%= link_to word_favorites_path(word), method: :delete do %>
-                    <i class="fa-solid fa-heart"></i>  
-                  <% end %>
-                  <%= word.word_favorites.count %>
-                </p>
-                <% else %>
-                <p>
-                  <%= link_to word_favorites_path(word), method: :post do %>
-                    <i class="fa-regular fa-heart"></i> 
-                  <% end %>
-                  <%= word.word_favorites.count %> 
-                </p>
-                <% end %>
+              <div id="favorites-btn-<%= word.id %>" class="mr-2">
+                <%= render "word_favorites/favorites_btn", word: word %>
               </div>
             
               <div class="mr-2">

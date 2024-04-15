@@ -30,14 +30,18 @@
           <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
+              <%= link_to user_path(current_user.id), class: 'nav-link text-dark' do %>
+                my page <i class="fa-regular fa-circle-user"></i>
+              <% end %>
             </li>
             <li class="nav-item">
-             <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                sign out <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <% end %>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               投稿フォーム
+               new create <i class="fa-regular fa-pen-to-square"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                <%= link_to 'articulos', new_article_path, class: 'nav-link text-dark' %>
@@ -47,10 +51,14 @@
             </li>
           <% else %>
             <li class="nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
+              <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>
+                sign up <i class="fa-solid fa-user-plus"></i>
+              <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
+              <%= link_to new_user_session_path, class: 'nav-link text-dark' do %>
+                sign in <i class="fa-solid fa-arrow-right-to-bracket"></i>
+              <% end %>
             </li>
           <% end %>
           </ul>

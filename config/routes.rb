@@ -4,19 +4,19 @@ Rails.application.routes.draw do
   root to: "homes#top"
 
   resources :articles do
-    resource :favorites, only: [:create, :destroy]
+    resource :article_favorite, only: [:create, :destroy]
     resources :article_comments, only: [:create, :destroy]
   end
   
   resources :words, only: [:new, :create, :index, :edit, :update, :destroy] do
-    resource :favorites, only: [:create, :destroy]
+    resource :word_favorite, only: [:create, :destroy]
     resources :word_comments, only: [:create, :destroy]
   end
   
   resources :questions do
     resources :question_comments, only: [:create, :destroy]
     resources :question_answers, only: [:create, :destroy] do
-        resource :favorites, only: [:create, :destroy]
+        resource :answer_favorite, only: [:create, :destroy]
     end
   end
   

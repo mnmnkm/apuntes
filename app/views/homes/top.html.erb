@@ -7,21 +7,11 @@
   </span>
   <p><%= image_tag article.user.get_profile_image(100,100) %></p>
   <p><%= article.user.name %></p>
-  <div>
-  <% if article.favorited_by?(current_user) %>
-    <p>
-      <%= link_to article_favorites_path(article), method: :delete do %>
-        ♥<%= article.article_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to article_favorites_path(article), method: :post do %>
-        ♡<%= article.article_favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+  
+  <div id="favorites-btn-<%= article.id %>" class="mr-2">
+    <%= render "article_favorites/favorites_btn", article: article %>
   </div>
+  
   <div>
     <p>コメント件数：<%= article.article_comments.count %></p>
   </div>
@@ -37,21 +27,11 @@
   <span><%= word.japanese_example %></span>
 　<p><%= image_tag word.user.get_profile_image(100,100) %></p>
 　<p><%= word.user.name %></p>
-  <div>
-    <% if word.favorited_by?(current_user) %>
-    <p>
-      <%= link_to word_favorites_path(word), method: :delete do %>
-        ♥<%= word.word_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to word_favorites_path(word), method: :post do %>
-        ♡<%= word.word_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% end %>
+　
+　<div id="favorites-btn-<%= word.id %>" class="mr-2">
+    <%= render "word_favorites/favorites_btn", word: word %>
   </div>
+  
   <div>
     <p>コメント件数：<%= word.word_comments.count %></p>
   </div>
