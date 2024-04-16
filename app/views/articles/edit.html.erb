@@ -1,22 +1,32 @@
-<h1>編集画面</h1>
+
+<% if @article.errors.any? %>
+  <%= @article.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @article.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= form_with model: @article do |f| %>
 
-  <div class="row mt-4">
-    <div class="form-inline mx-auto">
-      <% if @article.is_active == true %>
-        <%= f.submit "下書き保存", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
-        <%= f.submit "公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
-      <% else %>
-        <%= f.submit "更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
-      <% end %>
+  <div class="d-flex justify-content-end mx-2 my-4">
+    <% if @article.is_active == true %>
+      <%= f.submit "下書き保存", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning text-white' %>
+    <% else %>
+      <%= f.submit "下書きに戻す", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "更新", :name => 'update_post', class:'mr-2 btn btn-sm btn-warning text-light' %>
+    <% end %>
+    <div>
+      <u><%= link_to "削除", article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:'mr-5 btn btn-sm btn-secondary' %></u>
     </div>
   </div>
-  <div class="mt-4 pb-3 text-center">
-    <u><%= link_to "削除", article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:'text-danger' %></u>
-  </div>
 
-  <%= f.text_field :title, placeholder: "タイトル" %>
+
+  <div class="mb-3 row">
+    <%= f.text_field :title, placeholder: "タイトル", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
+  </div>
   
   <!--%= f.text_area :body %>-->
   <!--%= f.label :body %>-->

@@ -4,12 +4,12 @@ class WordsController < ApplicationController
   end
   
   def create
-    word = Word.new(word_params)
-    word.user_id = current_user.id
+    @word = Word.new(word_params)
+    @word.user_id = current_user.id
     
     if params[:post]
-      word.is_active = false
-      if word.save(context: :publicize)
+      @word.is_active = false
+      if @word.save(context: :publicize)
         flash[:notice] = "単語を公開しました。"
         redirect_to words_path
       else
@@ -17,8 +17,8 @@ class WordsController < ApplicationController
         render :new
       end
     else
-      word.is_active = true
-      if word.save(context: :publicize)
+      @word.is_active = true
+      if @word.save
         flash[:notice] = "単語を下書き保存しました。"
         redirect_to user_path(current_user.id)
       else

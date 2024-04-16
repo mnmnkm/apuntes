@@ -1,0 +1,15 @@
+<% if answer.favorited_by?(current_user) %>
+<p>
+  <%= link_to question_question_answer_answer_favorite_path(word), method: :delete, remote: true do %>
+    <i class="fa-solid fa-heart"></i> 
+  <% end %>
+  <%= question.answer_favorites.count %>
+</p>
+<% else %>
+<p>
+  <%= link_to question_question_answer_answer_favorite_path(word), method: :post, remote: true do %>
+    <i class="fa-regular fa-heart"></i>
+  <% end %>
+  <%= question.answer_favorites.count %>
+</p>
+<% end %>

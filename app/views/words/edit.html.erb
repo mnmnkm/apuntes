@@ -1,24 +1,40 @@
-<h1>編集画面</h1>
+
+<% if @word.errors.any? %>
+  <%= @word.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @word.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= form_with model: @word do |f| %>
 
-　<div class="row mt-4">
-    <div class="form-inline mx-auto">
-      <% if @word.is_active == true %>
-        <%= f.submit "下書き保存", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
-        <%= f.submit "公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
-      <% else %>
-        <%= f.submit "更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
-      <% end %>
-    </div>
+  <div class="d-flex justify-content-end mx-2 my-4">
+    <% if @word.is_active == true %>
+      <%= f.submit "下書き保存", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning text-white' %>
+    <% else %>
+      <%= f.submit "下書きに戻す", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "更新", :name => 'update_post', class:'mr-2 btn btn-sm btn-warning text-light' %>
+    <% end %>
   </div>
 
-　<strong>単語</strong> <br>
-　<%= f.text_field :spanish, placeholder: "スペイン語" %> <br>
-　<%= f.text_field :japanese, placeholder: "日本語" %> <br>
+　<div class="mb-3 row">
+    <label for="exampleFormControlInput1" class="form-label col-lg-8 offset-lg-2">単語</label>
+    <%= f.text_field :spanish, placeholder: "スペイン語", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
+　  <%= f.text_field :japanese, placeholder: "日本語", class:"form-control form-control-lg col-lg-8 offset-lg-2" %>
+    <!--<input type="text" class="form-control form-control-lg mb-3" id="exampleFormControlInput1" placeholder="スペイン語">-->
+    <!--<input type="text" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="日本語">-->
+  </div>
+　
 
-　<strong>例文</strong> <br>
-　<%= f.text_area :spanish_example, placeholder: "スペイン語" %> <br>
-　<%= f.text_area :japanese_example, placeholder: "日本語" %>
+  <div class="mb-3 row">
+    <label for="exampleFormControlTextarea1" class="form-label col-lg-8 offset-lg-2">例文</label>
+    <%= f.text_area :spanish_example, placeholder: "スペイン語", class:"form-control mb-3 col-lg-8 offset-lg-2" %>
+　  <%= f.text_area :japanese_example, placeholder: "日本語", class:"form-control col-lg-8 offset-lg-2" %>
+    <!--<textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="3" placeholder="スペイン語"></textarea>-->
+    <!--<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="日本語"></textarea>-->
+  </div>
 
 <% end %>

@@ -10,17 +10,21 @@
 
 <%= form_with model: @article do |f| %>
 
-　<%= f.submit '下書き保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
-　<%= f.submit '公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %> <br>
+　<div class="d-flex justify-content-end mx-2 my-4">
+　  <%= f.submit '下書き保存', :name => 'draft', class: 'mr-2 btn btn-sm btn-outline-secondary' %>
+　  <%= f.submit '公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
+　</div>
 
 
-　<%= f.text_field :title, placeholder: "タイトル" %>
+  <div class="mb-3 row">
+    <!--<label for="exampleFormControlInput1" class="form-label">Email address</label>-->
+    <!--<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="タイトル">-->
+    <%= f.text_field :title, placeholder: "タイトル", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
+  </div>
 
 　<!--%= f.text_area :body %>-->
 　<!--%= f.label :body %>-->
   <%= f.rich_text_area :body, placeholder: "本文" %>
-
-　<!--下書き/公開-->
 
 
 <% end %>

@@ -1,18 +1,29 @@
-<h1>編集画面</h1>
 
 <%= form_with model: @question do |f| %>
 
-　<!--<h4>タイトル</h4>-->
-  <%= f.text_field :title, placeholder: "タイトル" %>
+  <div class="d-flex justify-content-end mx-2 my-4">
+　  <%= f.submit '下書き保存', :name => 'draft', class: 'mr-2 btn btn-sm btn-outline-secondary' %>
+　  <%= f.submit '公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
+　</div>
 
-　<!--<h4>本文</h4>-->
-　<%= f.text_area :body, placeholder: "本文" %>
+　<div class="mb-3 row">
+    <%= f.text_field :title, placeholder: "タイトル", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
+  </div>
+  <div class="mb-3 row">
+    <%= f.text_area :body, placeholder: "本文", class:"form-control mb-3 col-lg-8 offset-lg-2" %>
+  </div>
 
-  
-  <!--解決/未解決-->
-  <%= f.radio_button :is_active, "true" %>解決
-  <%= f.radio_button :is_active, "false" %>未解決
-    
-  <%= f.submit '保存' %>
+
+  <div class="mb-3 col-lg-8 offset-lg-2">
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-outline-info mr-3">
+        <%= f.radio_button :is_active, "true" %>解決
+      </label>
+      
+      <label class="btn btn-outline-info">
+        <%= f.radio_button :is_active, "false" %>未解決
+      </label>
+    </div>
+  </div>
   
 <% end %>

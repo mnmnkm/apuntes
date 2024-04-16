@@ -4,12 +4,12 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    article = Article.new(article_params)
-    article.user_id = current_user.id
+    @article = Article.new(article_params)
+    @article.user_id = current_user.id
     
     if params[:post]
-      article.is_active = false
-      if article.save(context: :publicize)
+      @article.is_active = false
+      if @article.save(context: :publicize)
         flash[:notice] = "記事を公開しました。"
         redirect_to articles_path
       else
@@ -17,8 +17,8 @@ class ArticlesController < ApplicationController
         render :new
       end
     else
-      article.is_active = true
-      if article.save(context: :publicize)
+      @article.is_active = true
+      if @article.save
         flash[:notice] = "記事を下書き保存しました。"
         redirect_to user_path(current_user.id)
       else

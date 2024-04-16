@@ -4,9 +4,9 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    question = Question.new(question_params)
-    question.user_id = current_user.id
-    if question.save
+    @question = Question.new(question_params)
+    @question.user_id = current_user.id
+    if @question.save
       flash[:notice] = "投稿に成功しました。"
       redirect_to questions_path
     else

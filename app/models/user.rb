@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :question_comments, dependent: :destroy
   has_many :question_answers, dependent: :destroy
+  has_many :answer_favorites, dependent: :destroy
   
          
   has_one_attached :profile_image
