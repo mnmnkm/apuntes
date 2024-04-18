@@ -29,7 +29,8 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.all.order(id: :desc)
+    #@articles = Article.all.order(id: :desc)
+    @articles = Article.where(is_active: false).order(id: :desc)
   end
 
   def show
@@ -44,7 +45,6 @@ class ArticlesController < ApplicationController
   def update
     article = Article.find(params[:id])
     article.update(article_params)
-    redirect_to articles_path 
     
     if params[:publicize_draft]
       article.is_active = false

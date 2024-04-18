@@ -1,0 +1,59 @@
+
+<div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+<div id="main" class="col-10">
+
+
+<h2><%= @article.title %></h2>
+
+<!-- user icon start -->
+<div class="d-flex align-items-center">
+  <p><%= image_tag @article.user.get_profile_image(60,60) %></p>
+  <p><%= @article.user.name %></p>
+</div>
+<!-- user icon end -->
+
+<p>投稿日 <%= @article.created_at.strftime('%Y/%m/%d') %></p>
+
+
+<p><%= @article.body %></p>
+
+
+<!--<p>タグ</p>-->
+
+<div class="d-flex">
+  <div id="favorites-btn-<%= @article.id %>" class="mr-2">
+    <%= render "article_favorites/favorites_btn", article: @article %>
+  </div>
+  
+  <div class="mr-2">
+    <% if @article.user == current_user %>
+      <%= link_to edit_article_path(@article.id) do %>
+        <i class="fa-solid fa-pencil"></i>
+      <% end %>
+      <%= link_to article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+        <i class="fa-regular fa-trash-can"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+<div>
+  <p>コメント件数：<%= @article.article_comments.count %></p>
+  <% @article.article_comments.each do |article_comment| %>
+    <p><%= image_tag article_comment.user.get_profile_image(100,100) %></p>
+    <%= article_comment.user.name %>
+    <%= article_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if article_comment.user == current_user %>
+      <%= link_to "削除", article_article_comment_path(article_comment.article, article_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@article, @article_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

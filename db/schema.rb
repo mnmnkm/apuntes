@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2024_04_16_151653) do
 
   create_table "answer_favorites", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "answer_id"
+    t.integer "question_answer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

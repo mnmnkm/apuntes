@@ -73,8 +73,8 @@
       <%= question_answer.user.name %>
       <%= question_answer.created_at.strftime('%Y/%m/%d') %><%= question_answer.answer %>
 
-      <div id="favorites-btn-<%= answer.id %>" class="mr-2">
-        <%= render "answer_favorites/favorites_btn", question: question %>
+      <div id="favorites-btn-<%= question_answer.id %>" class="mr-2">
+        <%= render "answer_favorites/favorites_btn", answer: question_answer %>
       </div>
       
       <% if question_answer.user == current_user %>

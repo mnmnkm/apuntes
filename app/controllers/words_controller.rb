@@ -29,7 +29,8 @@ class WordsController < ApplicationController
   end
 
   def index
-    @words = Word.all.order(id: :desc)
+    # @words = Word.all.order(id: :desc)
+    @words = Word.where(is_active: false).order(id: :desc)
     # @word = Word.find(params[:id])
     @word_comment = WordComment.new
   end

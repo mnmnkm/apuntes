@@ -13,7 +13,7 @@
           <%= link_to article.title, article_path(article.id) %>
         </span>
         
-        <p class='example'><%= article.body %></p>
+        <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
         <!--<span>本文一部表示したい</span>-->
         
         <div class="d-flex justify-content-between align-items-center">
@@ -48,16 +48,16 @@
     <% end %>
     </article>
 </div>
-<script>
-  let max_length = 30;
+<script data-turbolinks="false">
+  // let max_length = 30;
   
-  window.addEventListener("turbolinks:load", ()=>{
-    let examples = Array.from(document.getElementsByClassName('trix-content'));
+  // window.addEventListener("turbolinks:load", ()=>{
+  //   let examples = Array.from(document.getElementsByClassName('trix-content'));
     
-    for(let example of examples){
-      let article_body = example.getElementsByTagName('div')[0];
-      // console.log(article_body.textContent)
-      article_body.innerHTML = example.textContent.slice(0,max_length)+'...';
-    }
-  })
+  //   for(let example of examples){
+  //     let article_body = example.getElementsByTagName('div')[0];
+  //     // console.log(article_body.textContent)
+  //     article_body.innerHTML = example.textContent.slice(0,max_length)+'...';
+  //   }
+  // })
 </script>

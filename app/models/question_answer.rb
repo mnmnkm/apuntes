@@ -5,7 +5,8 @@ class QuestionAnswer < ApplicationRecord
   has_many :answer_favorites, dependent: :destroy
   
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    pp self
+    answer_favorites.exists?(user_id: user.id)
   end
 
 end
