@@ -18,10 +18,13 @@
         <!--<a class="navbar-brand p-3" href="/"> %= image_tag('logo.png') %></a>-->
         <div><strong><a class="navbar-brand p-3" href="/"> apuntes </a></strong></div>
         <div class="col-8 justify-content-center d-flex">
-          <form class="form-inline col-10 justify-content-center">
-            <input class="form-control mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+          <!--<form class="form-inline col-10 justify-content-center">-->
+            <!--<input class="form-control mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">-->
+            <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+            <div class="form-inline justify-content-center">
+              <%= render "searches/form" %>
+            </div>
+          <!--</form>-->
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

@@ -82,7 +82,6 @@ class WordsController < ApplicationController
     word.destroy 
     redirect_to words_path
   end
-
   
   private
   def word_params

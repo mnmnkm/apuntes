@@ -23,5 +23,13 @@ class Word < ApplicationRecord
   def favorited_by?(user)
     word_favorites.exists?(user_id: user.id)
   end
+  
+  def self.search(search)
+    if search != ""
+      Word.where(['spanish LIKE(?) OR japanese LIKE(?) OR spanish_example LIKE(?) OR japanese_example LIKE(?)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+    else
+      Word.includes(:user).order('created_at DESC')
+    end
+  end
 
 end

@@ -26,4 +26,18 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [x, y]).processed
   end
+  
+  # def self.search_for(keyword)
+  def self.looks(search, keyword)
+    # if method == 'perfect'
+    #   User.where(name: content)
+    # elsif method == 'forward'
+    #   User.where('name LIKE ?', content + '%')
+    # elsif method == 'backward'
+    #   User.where('name LIKE ?', '%' + content)
+    # else
+      User.where('name LIKE ?', '%' + keyword + '%')
+    # end
+  end
+  
 end

@@ -1,0 +1,7 @@
+<div class="search_form">
+ <%= form_with url: search_path, local: true, method: :get do |f| %>
+    <%= f.text_field :keyword, placeholder:"Search", class:"form-control mr-sm-2 col-8" %>
+    <%= f.select :model, options_for_select({"articulos" => "article", "palabras" => "word", "preguntas" => "question", "User" => "user"}) %>
+    <%= f.submit "Search", class: "btn btn-outline-success my-3 my-sm-0" %>
+ <% end %>
+</div>

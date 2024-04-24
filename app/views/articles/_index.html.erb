@@ -1,0 +1,63 @@
+<div class="d-flex">
+  <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+  <div id="main" class="col-10">
+
+    <div class="my-3">
+     <h1>articulos</h1>
+    </div>
+
+    <article class='d-flex flex-wrap'>
+    <% articles.each do |article| %>
+      <section class='w-50 p-5 border-bottom border-right article_sections'>
+        <span>
+          <%= link_to article.title, article_path(article.id) %>
+        </span>
+        
+        <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
+        <!--<span>本文一部表示したい</span>-->
+        
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- user icon start -->
+            <div class="d-flex align-items-center">
+              <p><%= image_tag article.user.get_profile_image(60,60) %></p>
+              <p><%= article.user.name %></p>
+            </div>
+            <!-- user icon end -->
+            <div class="d-flex">
+              <div class="mr-2">
+                <% if article.user == current_user %>
+                  <%= link_to edit_article_path(article.id) do %>
+                    <i class="fa-solid fa-pencil"></i>
+                  <% end %>
+                  <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                    <i class="fa-regular fa-trash-can"></i>
+                  <% end %>
+                <% end %>
+              </div>
+  
+              <div id="favorites-btn-<%= article.id %>" class="mr-2">
+                <%= render "article_favorites/favorites_btn", article: article %>
+              </div>
+            
+              <div class="mr-2">
+                <p><i class="fa-regular fa-comment"></i> <%= article.article_comments.count %></p>
+              </div>
+            </div>
+          </div>
+        </section>
+    <% end %>
+    </article>
+</div>
+<script data-turbolinks="false">
+  // let max_length = 30;
+  
+  // window.addEventListener("turbolinks:load", ()=>{
+  //   let examples = Array.from(document.getElementsByClassName('trix-content'));
+    
+  //   for(let example of examples){
+  //     let article_body = example.getElementsByTagName('div')[0];
+  //     // console.log(article_body.textContent)
+  //     article_body.innerHTML = example.textContent.slice(0,max_length)+'...';
+  //   }
+  // })
+</script>

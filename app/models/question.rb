@@ -11,4 +11,8 @@ class Question < ApplicationRecord
 #   favorites.where(user_id: user.id).exists?
 #   end
 
+  def self.looks(search, keyword)
+    @question = Question.where("title LIKE?","%#{keyword}%")
+  end
+
 end

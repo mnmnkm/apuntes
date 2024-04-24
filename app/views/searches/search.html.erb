@@ -1,0 +1,10 @@
+<% if @model == 'user' %>
+    <h3>Users search for "<%= @keyword %>"</h3>
+  <%= render 'users/index', users: @records %>
+<% elsif @model == 'article' %>
+    <h3>Article search for "<%= @keyword %>"</h3>
+  <%= render 'articles/index', articles: @records %>
+<% elsif @model == 'word' %>
+    <h3>Word search for "<%= @keyword %>"</h3>
+  <%= render 'words/index', words: @records %>
+<% end %>

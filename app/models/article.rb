@@ -11,7 +11,7 @@ class Article < ApplicationRecord
   end
   
   validates :title, length: { maximum: 20 }, on: :publicize
-  validates :body, length: { maximum: 500 }, on: :publicize
+  # validates :body, length: { maximum: 1000 }, on: :publicize 
   
   # validates :title, presence: true
   # validates :body, presence: true
@@ -22,6 +22,19 @@ class Article < ApplicationRecord
   
   def favorited_by?(user)
     article_favorites.exists?(user_id: user.id)
+  end
+  
+  # def self.search_for(keyword)
+  def self.looks(search, keyword)
+    # if method == 'perfect'
+    #   Article.where(title: content)
+    # elsif method == 'forward'
+    #   Article.where('title LIKE ?', content + '%')
+    # elsif method == 'backward'
+    #   Article.where('title LIKE ?', '%' + content)
+    # else
+      Article.where('title LIKE ?', "%#{word}%")
+    # end
   end
 
 end
