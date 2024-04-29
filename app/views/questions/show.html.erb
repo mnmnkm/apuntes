@@ -54,14 +54,16 @@
       <% end %>
     </div>
   <% end %>
-  <div>
-    <%= form_with model: [@question, @question_comment] do |f| %>
-      <div class="d-flex">
-        <%= f.text_area :comment, size: "130x1", placeholder: "コメント入力", class: "display-block" %>
-        <%= f.submit "送信する", class: "align-self-end ml-3" %>
-      </div>
-    <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div>
+      <%= form_with model: [@question, @question_comment] do |f| %>
+        <div class="d-flex">
+          <%= f.text_area :comment, size: "130x1", placeholder: "コメント入力", class: "display-block" %>
+          <%= f.submit "送信する", class: "align-self-end ml-3" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <!-- comment end -->
 
@@ -82,12 +84,14 @@
       <% end %>
     </div>
   <% end %>
-  <div>
-    <%= form_with model: [@question, @question_answer] do |f| %>
-      <div class="d-flex">
-        <%= f.text_area :answer, size: "130x1", placeholder: "回答入力", class: "display-block" %>
-        <%= f.submit "送信する", class: "align-self-end ml-3" %>
-      </div>
-    <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div>
+      <%= form_with model: [@question, @question_answer] do |f| %>
+        <div class="d-flex">
+          <%= f.text_area :answer, size: "130x1", placeholder: "回答入力", class: "display-block" %>
+          <%= f.submit "送信する", class: "align-self-end ml-3" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

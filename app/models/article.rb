@@ -25,16 +25,8 @@ class Article < ApplicationRecord
   end
   
   # def self.search_for(keyword)
-  def self.looks(search, keyword)
-    # if method == 'perfect'
-    #   Article.where(title: content)
-    # elsif method == 'forward'
-    #   Article.where('title LIKE ?', content + '%')
-    # elsif method == 'backward'
-    #   Article.where('title LIKE ?', '%' + content)
-    # else
-      Article.where('title LIKE ?', "%#{word}%")
-    # end
+  def self.looks(keyword)
+      Article.where('title LIKE ?', "%#{keyword}%")
   end
 
 end

@@ -15,7 +15,7 @@ class WordCommentsController < ApplicationController
 
   private
 
-  def word_question_params
+  def word_comment_params
     params.require(:word_comment).permit(:comment)
   end
 

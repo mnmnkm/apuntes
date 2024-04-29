@@ -24,9 +24,9 @@ class Word < ApplicationRecord
     word_favorites.exists?(user_id: user.id)
   end
   
-  def self.search(search)
-    if search != ""
-      Word.where(['spanish LIKE(?) OR japanese LIKE(?) OR spanish_example LIKE(?) OR japanese_example LIKE(?)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"])
+  def self.looks(keyword)
+    if keyword != ""
+      Word.where(['spanish LIKE(?) OR japanese LIKE(?) OR spanish_example LIKE(?) OR japanese_example LIKE(?)', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
     else
       Word.includes(:user).order('created_at DESC')
     end

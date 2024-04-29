@@ -1,0 +1,10 @@
+ja:
+  enums:
+    order:
+      spanish_level:
+        Nativo: "Nativo 母語"
+        Principiante: "Principiante 初心者"
+        Elemental: "Elemental 基礎"
+        Internedio: "Internedio 中級"
+        Avanzado: "Avanzado 上級"
+        Execelente: "Execelente 堪能"

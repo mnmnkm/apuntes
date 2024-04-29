@@ -1,4 +1,9 @@
-<% if word.favorited_by?(current_user) %>
+<% if current_user.nil? %>
+<p>
+  <i class="fa-regular fa-heart"></i>  
+  <%= word.word_favorites.count %>
+</p>
+<% elsif word.favorited_by?(current_user) %>
 <p>
   <%= link_to word_word_favorite_path(word), method: :delete, remote: true do %>
     <i class="fa-solid fa-heart"></i> 

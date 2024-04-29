@@ -15,7 +15,7 @@ class ArticleCommentsController < ApplicationController
 
   private
 
-  def article_params
+  def article_comment_params
     params.require(:article_comment).permit(:comment)
   end
     

@@ -1,4 +1,9 @@
-<% if answer.favorited_by?(current_user) %>
+<% if current_user.nil? %>
+<p>
+  <i class="fa-regular fa-heart"></i>  
+  <%= answer.answer_favorites.count %>
+</p>
+<% elsif answer.favorited_by?(current_user) %>
 <p>
   <%= link_to question_question_answer_answer_favorite_path(answer.question_id, answer.id), method: :delete, remote: true do %>
     <i class="fa-solid fa-heart"></i> 
