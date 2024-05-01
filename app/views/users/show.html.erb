@@ -1,67 +1,224 @@
 <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
 <div id="main" class="col-10">
-    
-<div class="my-3 d-flex">
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <div>
-    <h2><%= @user.name %></h2>
-    <% if @user.id == current_user.id %>
-    <!--% if current_user == @user %>-->
-      <%= link_to "プロフィール編集", edit_user_path(@user), class:"btn btn-outline-secondary" %>
-    <% else %>
-      <% if current_user.following?(user) %>
-        <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
-      <% else %>
-        <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
-      <% end %>
-    <% end %>
+  <div class="my-3 d-flex row">
+    <div class="col-4 pt-5 row">
+      <div class="col-4">
+      <%= image_tag @user.get_profile_image(100,100) %>
+      </div>
+      <div class="col-6">
+        <span class="h2"><%= @user.name %></span>
+        <p>
+          <% if @user.id == current_user.id %>
+          <!--% if current_user == @user %>-->
+            <%= link_to "プロフィール編集", edit_user_path(@user), class:"btn btn-outline-secondary" %>
+          <% else %>
+            <% if current_user.following?(user) %>
+              <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <div class="col-8 d-flex bd-highlight pt-5 row">
+      <p class="col-3　text-center">投稿数</p>
+      <% user = @user %>
+      <div class="col-3 text-center">
+        <%= link_to user.followings.count, user_followings_path(user) %> <br>
+        seguiendo
+      </div>
+      <div class="col-3　text-center">
+        <%= link_to user.followers.count, user_followers_path(user) %>
+        seguidores
+      </div>
+    </div>
   </div>
+
+  <span><i class="fa-regular fa-star"></i> <%= @user.spanish_level %></span>
   
-  <div class="d-flex  bd-highlight">
-    <p>投稿数</p>
-    <% user = @user %>
-    <div>
-      <p><%= link_to user.followings.count, user_followings_path(user) %></p>
-      <p>seguiendo</p>
-    </div>
-    <div>
-      <p><%= link_to user.followers.count, user_followers_path(user) %></p>
-      <p>seguidores</p>
-    </div>
-  </div>
+  
+  <p><i class="fa-solid fa-graduation-cap"></i> <%= @user.certification %></p>
+  
+  <p><%= @user.introduction %></p>
 
 
-</div>
-
-<span><i class="fa-regular fa-star"></i> <%= @user.spanish_level %></span>
-
-
-<p><i class="fa-solid fa-graduation-cap"></i> <%= @user.certification %></p>
-
-<p><%= @user.introduction %></p>
-
-
-<!--<p>スペイン語レベル</p>-->
-<!--<p>学歴・資格</p>-->
-
-<!--<もしくは<p>フォローボタン</p>-->
-
-<!--<p>投稿数</p><p>フォロワー数</p><p>フォロー数</p>-->
-
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <!--<li class="nav-item">-->
+    <!--  <a class="nav-link active" id="incio-tab" data-toggle="tab" href="#incio" role="tab" aria-controls="incio" aria-selected="true">incio</a>-->
+    <!--</li>-->
     <li class="nav-item">
-      <a class="nav-link active" id="incio-tab" data-toggle="tab" href="#incio" role="tab" aria-controls="incio" aria-selected="true">incio</a>
+      <a class="nav-link" id="articles-tab" data-toggle="tab" href="#articles" role="tab" aria-controls="articles" aria-selected="false">articulos</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="articulos-tab" data-toggle="tab" href="#articulos" role="tab" aria-controls="articulos" aria-selected="false">articulos</a>
+      <a class="nav-link" id="words-tab" data-toggle="tab" href="#words" role="tab" aria-controls="words" aria-selected="false">palabras</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="palabras-tab" data-toggle="tab" href="#palabras" role="tab" aria-controls="palabras" aria-selected="false">palabras</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="preguntas-tab" data-toggle="tab" href="#preguntas" role="tab" aria-controls="preguntas" aria-selected="false">preguntas</a>
+      <a class="nav-link" id="question-tab" data-toggle="tab" href="#question" role="tab" aria-controls="question" aria-selected="false">preguntas</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="borrador-tab" data-toggle="tab" href="#borrador" role="tab" aria-controls="borrador" aria-selected="false">borrador</a>
     </li>
   </ul>
+  
+  <div class="tab-content" id="myTabContent">
+  <!--<div class="tab-pane fade show active" id="incio" role="tabpanel" aria-labelledby="incio-tab">-->
+  <!--  panel1-->
+  <!--</div>-->
+    <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
+      <% @articles.each do |article| %>
+        <section class='w-50 p-5 border-bottom border-right article_sections'>
+          <span>
+            <%= link_to article.title, article_path(article.id) %>
+          </span>
+          
+          <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
+  
+          <div class="d-flex justify-content-between align-items-center">
+              <!-- user icon start -->
+              <div class="d-flex align-items-center">
+                <p><%= image_tag article.user.get_profile_image(60,60) %></p>
+                <p><%= article.user.name %></p>
+              </div>
+              <!-- user icon end -->
+              <div class="d-flex">
+                <div class="mr-2">
+                  <% if article.user == current_user %>
+                    <%= link_to edit_article_path(article.id) do %>
+                      <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                    <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                      <i class="fa-regular fa-trash-can"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+    
+                <div id="favorites-btn-<%= article.id %>" class="mr-2">
+                  <%= render "article_favorites/favorites_btn", article: article %>
+                </div>
+              
+                <div class="mr-2">
+                  <p><i class="fa-regular fa-comment"></i> <%= article.article_comments.count %></p>
+                </div>
+              </div>
+            </div>
+          </section>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="words" role="tabpanel" aria-labelledby="words-tab">
+      <% @words.each do |word| %>
+       <div>
+        <div>
+          <dl>
+            <div class="d-flex">
+              <dt class="col">
+                <!--<p>スペイン語 単語</p>-->
+                <h4><span><%= word.spanish %></span></h4>
+              </dt>
+              <dd class="col">
+                <!--<p>日本語 単語</p>-->
+                <h5><span><%= word.japanese %></span></h5><br>
+              </dd>
+            </div>
+            <div class="d-flex">
+              <dt class="col">
+                <!--<p>スペイン語 例文</p>-->
+                <span><%= simple_format(word.spanish_example) %></span><br>
+              </dt>
+              <dd class="col">
+                <!--<p>日本語 例文</p>-->
+                <span><%= simple_format(word.japanese_example) %></span>
+              </dd>
+            </div>
+          </dl>
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- user icon start -->
+            <div class="d-flex align-items-center">
+              <p><%= image_tag word.user.get_profile_image(60,60) %></p>
+              <p><%= word.user.name %></p>
+            </div>
+            <!-- user icon end -->
+            <div class="d-flex">
+              <div class="mr-2">
+                <% if word.user == current_user %>
+                  <%= link_to edit_word_path(word.id) do %>
+                    <!--<i class="fa-regular fa-pen-to-square"></i>-->
+                    <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                    <i class="fa-regular fa-trash-can"></i>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div id="favorites-btn-<%= word.id %>" class="mr-2">
+                <%= render "word_favorites/favorites_btn", word: word %>
+              </div>
+            
+              <div class="mr-2">
+                <p><i class="fa-regular fa-comment"></i> <%= word.word_comments.count %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- comment start -->
+        <div>
+          <% word.word_comments.each do |word_comment| %>
+            <p><%= image_tag word_comment.user.get_profile_image(50,50) %></p>
+            <%= word_comment.user.name %>
+            <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= word_comment.comment %>
+            <% if word_comment.user == current_user %>
+              <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
+            <% end %>
+          <% end %>
+          <% if user_signed_in? %>
+            <div>
+              <%#= form_with model: [word, @word_comment] do |f| %>
+                <div class="d-flex">
+                  <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
+                  <%= f.submit "送信する", class: "align-self-end ml-3" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <!-- comment end -->
+       </div>
+      <% end %><!-- @words.each end -->
+    </div>
+    <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
+      <% @questions.each do |question| %>
+        <div class="d-flex preguntas_article">
+          <div class='px-4 py-2'>
+            <p>
+            <% if question.is_active == true %>
+              解決
+            <% else %>
+              未解決
+            <% end %>
+            </p>
+            <p><%= link_to "#{question.question_answers.count} 回答数", question_path(question.id) %></p>
+          </div>
+    
+          <div class='flex-grow-1'>
+            <span>
+              <%= link_to question.title, question_path(question.id) %>  
+            </span>
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- user icon start -->
+              <div class="d-flex align-items-center">
+                    <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                    <p><%= question.user.name %></p>
+              </div>
+              <!-- user icon end -->
+              <div class="mr-2">
+                <p><i class="fa-regular fa-comment"></i> <%= question.question_comments.count %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+  
