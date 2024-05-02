@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     
     if params[:post]
-      @article.is_active = false
+      @article.is_active = true
       if @article.save(context: :publicize)
         flash[:notice] = "記事を公開しました。"
         redirect_to articles_path
@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
         render :new
       end
     else
-      @article.is_active = true
+      @article.is_active = false
       if @article.save
         flash[:notice] = "記事を下書き保存しました。"
         redirect_to user_path(current_user.id)
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
   def index
     #@articles = Article.all.order(id: :desc)
-    @articles = Article.where(is_active: false).order(id: :desc)
+    @articles = Article.where(is_active: true).order(id: :desc)
   end
 
   def show

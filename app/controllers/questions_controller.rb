@@ -6,19 +6,34 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
-    if @question.save
-      flash[:notice] = "投稿に成功しました。"
-      redirect_to questions_path
+    
+    if params[:post]
+      @question.is_active = true
+      if @question.save(context: :publicize)
+        flash[:notice] = "投稿に成功しました。"
+        redirect_to questions_path
+      else
+        flash.now[:alert] = "投稿に失敗しました。"
+        render :new
+      end
     else
-      flash.now[:alert] = "投稿に失敗しました。"
-      render :new
+      @question.is_active = false
+      if @question.save
+        flash[:notice] = "質問を下書き保存しました。"
+        redirect_to user_path(current_user.id)
+      else
+        flash.now[:alert] = "質問を下書き保存できませんでした。"
+        render :new
+      end
     end
   end
 
   def index
-    @questions = Question.all.order(id: :desc)
+    # @questions = Question.all.order(id: :desc)
     @is_active_questions = Question.where(is_active: true).order(id: :desc)
     @not_active_questions = Question.where(is_active: false).order(id: :desc)
+    @questions = Question.where(is_active: true).order(id: :desc)
+
     # if params[:target] == "active_onliy"
     #   @questions = Question.where(is_active: true) # 公開のデータだけ取得
     # end

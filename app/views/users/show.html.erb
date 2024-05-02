@@ -1,13 +1,13 @@
 <div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
 <div id="main" class="col-10">
   <div class="my-3 d-flex row">
-    <div class="col-4 pt-5 row">
-      <div class="col-4">
-      <%= image_tag @user.get_profile_image(100,100) %>
+    <div class="col-6 pt-5 row">
+      <div class="col-4 " >
+      <%= image_tag @user.get_profile_image(150,150) %>
       </div>
       <div class="col-6">
         <span class="h2"><%= @user.name %></span>
-        <p>
+        <p class="mt-4">
           <% if @user.id == current_user.id %>
           <!--% if current_user == @user %>-->
             <%= link_to "プロフィール編集", edit_user_path(@user), class:"btn btn-outline-secondary" %>
@@ -21,15 +21,19 @@
         </p>
       </div>
     </div>
-    <div class="col-8 d-flex bd-highlight pt-5 row">
-      <p class="col-3　text-center">投稿数</p>
+    <div class="col-6 d-flex bd-highlight pt-5 row justify-content-end">
+      <p class="col-2 text-center">
+        <%= @total_count %><br>
+        <%= @articles.count %> / <%= @words.count %> / <%= @questions.count %>
+        投稿数  
+      </p>
       <% user = @user %>
-      <div class="col-3 text-center">
+      <div class="col-2 text-center">
         <%= link_to user.followings.count, user_followings_path(user) %> <br>
         seguiendo
       </div>
-      <div class="col-3　text-center">
-        <%= link_to user.followers.count, user_followers_path(user) %>
+      <div class="col-2 text-center">
+        <%= link_to user.followers.count, user_followers_path(user) %> <br>
         seguidores
       </div>
     </div>
@@ -56,9 +60,9 @@
     <li class="nav-item">
       <a class="nav-link" id="question-tab" data-toggle="tab" href="#question" role="tab" aria-controls="question" aria-selected="false">preguntas</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="borrador-tab" data-toggle="tab" href="#borrador" role="tab" aria-controls="borrador" aria-selected="false">borrador</a>
-    </li>
+    <!--<li class="nav-item">-->
+    <!--  <a class="nav-link" id="borrador-tab" data-toggle="tab" href="#borrador" role="tab" aria-controls="borrador" aria-selected="false">borrador</a>-->
+    <!--</li>-->
   </ul>
   
   <div class="tab-content" id="myTabContent">
@@ -67,12 +71,18 @@
   <!--</div>-->
     <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
       <% @articles.each do |article| %>
-        <section class='w-50 p-5 border-bottom border-right article_sections'>
-          <span>
+        <section class='border-bottom article_sections'>
+          <% if article.is_active == false %>
+            <p>
+            　下書き
+            </p>
+          <% end %>
+          <span class="h5">
             <%= link_to article.title, article_path(article.id) %>
           </span>
           
           <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
+          
   
           <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
@@ -105,8 +115,14 @@
           </section>
       <% end %>
     </div>
+    
     <div class="tab-pane fade" id="words" role="tabpanel" aria-labelledby="words-tab">
       <% @words.each do |word| %>
+      <% if word.is_active == false %>
+        <p>
+        　下書き
+        </p>
+      <% end %>
        <div>
         <div>
           <dl>
@@ -173,7 +189,7 @@
           <% end %>
           <% if user_signed_in? %>
             <div>
-              <%#= form_with model: [word, @word_comment] do |f| %>
+              <%= form_with model: [word, @word_comment] do |f| %>
                 <div class="d-flex">
                   <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
                   <%= f.submit "送信する", class: "align-self-end ml-3" %>
@@ -188,8 +204,14 @@
     </div>
     <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
       <% @questions.each do |question| %>
-        <div class="d-flex preguntas_article">
-          <div class='px-4 py-2'>
+      <% if question.is_active == false %>
+        <p>
+        　下書き
+        </p>
+      <% end %>
+
+        <div class="d-flex border-bottom preguntas_article">
+          <div class='px-4 py-2 text-center'>
             <p>
             <% if question.is_active == true %>
               解決
@@ -210,9 +232,22 @@
                     <p><%= image_tag question.user.get_profile_image(60,60) %></p>
                     <p><%= question.user.name %></p>
               </div>
+              <div class="d-flex">
+                <div class="mr-2">
+                  <% if question.user == current_user %>
+                    <%= link_to edit_question_path(question.id) do %>
+                      <!--<i class="fa-regular fa-pen-to-square"></i>-->
+                      <i class="fa-solid fa-pencil"></i>
+                      <% end %>
+                    <%= link_to question_path(question.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                      <i class="fa-regular fa-trash-can"></i>
+                    <% end %>
+                  <% end %>
+                </div>
               <!-- user icon end -->
-              <div class="mr-2">
-                <p><i class="fa-regular fa-comment"></i> <%= question.question_comments.count %></p>
+                <div class="mr-2">
+                  <p><i class="fa-regular fa-comment"></i> <%= question.question_comments.count %></p>
+                </div>
               </div>
             </div>
           </div>

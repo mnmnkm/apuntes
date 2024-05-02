@@ -1,20 +1,15 @@
 <% if current_user.nil? %>
-<p>
+
   <i class="fa-regular fa-heart"></i>  
   <%= article.article_favorites.count %>
-</p>
 <% elsif article.favorited_by?(current_user) %>
-<p>
   <%= link_to article_article_favorite_path(article), method: :delete, remote: true do %>
     <i class="fa-solid fa-heart"></i>  
   <% end %>
   <%= article.article_favorites.count %>
-</p>
 <% else %>
-<p>
   <%= link_to article_article_favorite_path(article), method: :post, remote: true do %>
     <i class="fa-regular fa-heart"></i>  
   <% end %>
   <%= article.article_favorites.count %>
-</p>
 <% end %>

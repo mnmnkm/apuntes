@@ -8,7 +8,7 @@ class WordsController < ApplicationController
     @word.user_id = current_user.id
     
     if params[:post]
-      @word.is_active = false
+      @word.is_active = true
       if @word.save(context: :publicize)
         flash[:notice] = "単語を公開しました。"
         redirect_to words_path
@@ -17,7 +17,7 @@ class WordsController < ApplicationController
         render :new
       end
     else
-      @word.is_active = true
+      @word.is_active = false
       if @word.save
         flash[:notice] = "単語を下書き保存しました。"
         redirect_to user_path(current_user.id)
@@ -30,7 +30,7 @@ class WordsController < ApplicationController
 
   def index
     # @words = Word.all.order(id: :desc)
-    @words = Word.where(is_active: false).order(id: :desc)
+    @words = Word.where(is_active: true).order(id: :desc)
     # @word = Word.find(params[:id])
     @word_comment = WordComment.new
   end

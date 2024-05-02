@@ -14,28 +14,36 @@
           <div class="d-flex justify-content-between align-items-end row">
               <!-- user icon start -->
               <div class="d-flex align-items-end col-5">
-                <%= image_tag article.user.get_profile_image(60,60) %>
-                <%= article.user.name %>
-                <%= article.created_at.strftime('%Y/%m/%d') %>
+                <div>
+                  <%= image_tag article.user.get_profile_image(60,60) %>
+                </div>
+                <div>
+                  <span class="d-block">
+                    <%= article.user.name %>
+                  </span>
+                  <span class="d-block mt-2">
+                    <%= article.created_at.strftime('%Y/%m/%d') %>
+                  </span>
+                </div>
               </div>
               <!-- user icon end -->
-              <div class="d-flex col-7 row">
+              <div class="d-flex col-7 justify-content-end align-items-end">
                 <!--<div>-->
                   <% if article.user == current_user %>
                     <%= link_to edit_article_path(article.id) do %>
-                      <div class="col-1"><i class="fa-solid fa-pencil"></i></div>
+                      <div class="pr-3"><i class="fa-solid fa-pencil"></i></div>
                     <% end %>
                     <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                      <div class="col-1"><i class="fa-regular fa-trash-can"></i></div>
+                      <div class="pr-3"><i class="fa-regular fa-trash-can"></i></div>
                     <% end %>
                   <% end %>
                 <!--</div>-->
     
-                <div id="favorites-btn-<%= article.id %>" class="col-4">
+                <div id="favorites-btn-<%= article.id %>" class="pr-2">
                   <%= render "article_favorites/favorites_btn", article: article %>
                 </div>
               
-                <div class="col-4">
+                <div class="pr-2">
                   <i class="fa-regular fa-comment"></i> <%= article.article_comments.count %>
                 </div>
               </div>
@@ -47,41 +55,49 @@
     <div class="h2 pt-5 px-5"><%= link_to "palabras", words_path %></div>
       <word class='d-flex flex-wrap px-5'>
         <% @words.each do |word| %>
-          <div class='w-50 p-3 border-bottom border-right'>
-            <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s) + " --" + strip_tags(word.spanish_example.to_s)).gsub(/[\n]/,"").strip.truncate(50) %>
+          <section class='w-50 p-3 border-bottom border-right article_sections'>
+            <p>
+              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s) + " --" + strip_tags(word.spanish_example.to_s)).gsub(/[\n]/,"").strip.truncate(50) %>
+            </p>
             <div>
-              <div class="d-flex justify-content-between align-items-end">
+              <div class="d-flex justify-content-between row">
                 <!-- user icon start -->
-                <div class="d-flex align-items-end">
-                  <p><%= image_tag word.user.get_profile_image(60,60) %></p>
-                  <p><%= word.user.name %></p>
-                  <%= word.created_at.strftime('%Y/%m/%d') %>
+                <div class="d-flex align-items-end col-5">
+                  <div>
+                    <%= image_tag word.user.get_profile_image(60,60) %>
+                  </div>
+                  <div>
+                    <span class="d-block">
+                      <%= word.user.name %>
+                    </span>
+                    <span class="d-block mt-2">
+                      <%= word.created_at.strftime('%Y/%m/%d') %>
+                    </span>
+                  </div>
                 </div>
                 <!-- user icon end -->
-                <div class="d-flex">
-                  <div class="mr-2">
+                <div class="d-flex col-7 align-items-end justify-content-end">
                     <% if word.user == current_user %>
                       <%= link_to edit_word_path(word.id) do %>
                         <!--<i class="fa-regular fa-pen-to-square"></i>-->
-                        <i class="fa-solid fa-pencil"></i>
-                        <% end %>
+                        <div class="pr-3"><i class="fa-solid fa-pencil"></i></div>
+                      <% end %>
                       <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                        <i class="fa-regular fa-trash-can"></i>
+                        <div class="pr-3"><i class="fa-regular fa-trash-can"></i></div>
                       <% end %>
                     <% end %>
-                  </div>
-    
-                  <div id="favorites-btn-<%= word.id %>" class="mr-2">
+
+                  <div id="favorites-btn-<%= word.id %>" class="pr-2">
                     <%= render "word_favorites/favorites_btn", word: word %>
                   </div>
                 
-                  <div class="mr-2">
-                    <p><i class="fa-regular fa-comment"></i> <%= word.word_comments.count %></p>
+                  <div class="pr-2">
+                    <i class="fa-regular fa-comment"></i> <%= word.word_comments.count %>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         <% end %><!-- @words.each end -->
       </word>
   </div>
@@ -89,8 +105,8 @@
   <div class="col-4">
     <div class="h2 pt-3"><%= link_to "preguntas", questions_path %></div>
       <% @questions.each do |question| %>
-        <div class="d-flex pl-2 pr-4 py-2 border-bottom border-left preguntas_article row">
-          <div class='h5 col-7'>
+        <div class="d-flex pl-2 pr-4 py-2 border-bottom border-left preguntas_article row justify-content-end w-100">
+          <div class='h5 col-12'>
             <%= link_to question.title, question_path(question.id) %>  
             <br>
           </div>
