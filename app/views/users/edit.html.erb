@@ -12,10 +12,10 @@
   <div class="col-8">
     <!--<div class="mb-3">-->
       <label for="inputName">Name</label>
-      <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%>
+      <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前" %>
     <!--</div>-->
   
-    <div class="field d-flex row">
+    <div class="field d-flex row pt-3">
       <div class="spanish_level pr-2 col-4">Nivel</div>
       <div class="radio_button col-8">
         <div class="radio-inline">
@@ -45,18 +45,20 @@
       </div>
     </div>
   
-    <div class="certification row">
+    <div class="certification row pt-3">
       <div class="col-2">Claification</div>
       <%= f.text_area :certification, placeholder: "学歴・資格", class:"form-control mb-3 col-10" %>
     </div>
 
-    <div class="introduction row">
+    <div class="introduction row pt-3">
       <div class="col-2">Presentacion</div>
       <%= f.text_area :introduction, placeholder: "自己紹介", class:"form-control mb-3 col-10" %>
     </div>
   </div>
   
-  <%= f.submit "変更を保存" %>
+  <div class="justify-content-end">
+    <%= f.submit "変更を保存" %>
+  </div>
 </div>
 <% end %>
 </div>

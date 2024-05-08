@@ -8,35 +8,41 @@
   <% else %>
     未解決
   <% end %>
-  <%= link_to "#{@question.question_answers.count} 回答数", question_path(@question.id) %>
+  <span class="pl-3"><i class="fa-regular fa-lightbulb"></i> <%= @question.question_answers.count %></span>
+
+  <%#= link_to "#{@question.question_answers.count} 回答数", question_path(@question.id) %>
 </div>
 
 
 <h2><%= @question.title %></h2>
 
 <!-- user icon start -->
-<div class="d-flex align-items-center">
-  <p><%= image_tag @question.user.get_profile_image(60,60) %></p>
-  <p><%= @question.user.name %></p>
+<div class="d-flex align-items-center  justify-content-between">
+  <div class="d-flex align-items-center">
+    <p><%= image_tag @question.user.get_profile_image(60,60) %></p>
+    <p><%= @question.user.name %></p>
+  </div>
+    <p><%= @question.created_at.strftime('%Y/%m/%d') %></p>
 </div>
 <!-- user icon end -->
-
-<p>投稿日 <%= @question.created_at.strftime('%Y/%m/%d') %></p>
-
 
 <p><%= @question.body %></p>
 
 
 <div class="d-flex mr-2">
-  <p>回答件数：<%= @question.question_answers.count %></p>
+  <p><i class="fa-regular fa-lightbulb"></i> <%= @question.question_answers.count %></p>
 
   <% if @question.user == current_user %>
     <%= link_to edit_question_path(@question.id) do %>
       <!--<i class="fa-regular fa-pen-to-square"></i>-->
-      <i class="fa-solid fa-pencil"></i>
+      <div class="pl-2">
+        <i class="fa-solid fa-pencil"></i>
+      </div>
       <% end %>
     <%= link_to question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-      <i class="fa-regular fa-trash-can"></i>
+      <div class="pl-2">
+        <i class="fa-regular fa-trash-can"></i>
+      </div>
     <% end %>
   <% end %>
 </div>
@@ -58,7 +64,7 @@
     <div>
       <%= form_with model: [@question, @question_comment] do |f| %>
         <div class="d-flex">
-          <%= f.text_area :comment, size: "130x1", placeholder: "コメント入力", class: "display-block" %>
+          <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
           <%= f.submit "送信する", class: "align-self-end ml-3" %>
         </div>
       <% end %>
@@ -88,7 +94,7 @@
     <div>
       <%= form_with model: [@question, @question_answer] do |f| %>
         <div class="d-flex">
-          <%= f.text_area :answer, size: "130x1", placeholder: "回答入力", class: "display-block" %>
+          <%= f.text_area :answer, size: "150x1", placeholder: "回答入力", class: "display-block" %>
           <%= f.submit "送信する", class: "align-self-end ml-3" %>
         </div>
       <% end %>

@@ -23,7 +23,7 @@
     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
       <% @questions.each do |question| %>
         <div class="d-flex preguntas_article">
-          <div class='px-4 py-2'>
+          <div class='px-4 py-2 text-center'>
             <p>
             <% if question.is_active == true %>
               解決
@@ -57,7 +57,7 @@
     <div class="tab-pane fade" id="unresolved" role="tabpanel" aria-labelledby="unresolved-tab">
       <% @not_active_questions.each do |question| %>
         <div class="d-flex preguntas_article">
-          <div class='px-4 py-2'>
+          <div class='px-4 py-2 text-center'>
             <p>
             <% if question.is_active == true %>
               解決
@@ -65,7 +65,7 @@
               未解決
             <% end %>
             </p>
-            <p><%= link_to "#{question.question_answers.count} 回答数", question_path(question.id) %></p>
+            <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
           </div>
     
           <div class='flex-grow-1'>
@@ -91,7 +91,7 @@
     <div class="tab-pane fade" id="resolved" role="tabpanel" aria-labelledby="resolved-tab">
       <% @is_active_questions.each do |question| %>
       <div class="d-flex preguntas_article">
-        <div class='px-4 py-2'>
+        <div class='px-4 py-2 text-center'>
           <p>
           <% if question.is_active == true %>
             解決

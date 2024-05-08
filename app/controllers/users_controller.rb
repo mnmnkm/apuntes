@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       @words = @not_active_words + @words
     end
     
-    @questions = @user.questions
+    @questions = @user.questions.where(is_active: true).order(id: :desc)
     @total_count += @questions.count
     
     if @user.id == current_user.id

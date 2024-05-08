@@ -5,11 +5,11 @@
     <article class='d-flex flex-wrap px-5'>
       <% @articles.each do |article| %>
         <section class='w-50 p-3 border-bottom border-right article_sections'>
-          <span class="h5">
+          <p class="h5">
             <%= link_to article.title, article_path(article.id) %>
-          </span>
+          </p>
           
-          <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
+          <!--<p class='example'><%#= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>-->
   
           <div class="d-flex justify-content-between align-items-end row">
               <!-- user icon start -->
@@ -57,7 +57,7 @@
         <% @words.each do |word| %>
           <section class='w-50 p-3 border-bottom border-right article_sections'>
             <p>
-              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s) + " --" + strip_tags(word.spanish_example.to_s)).gsub(/[\n]/,"").strip.truncate(50) %>
+              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s) + " -" + strip_tags(word.spanish_example.to_s)).gsub(/[\n]/,"").strip.truncate(50) %>
             </p>
             <div>
               <div class="d-flex justify-content-between row">
@@ -111,7 +111,6 @@
             <br>
           </div>
           <div class="d-flex align-items-end col-5">
-            <div class="px-2"><%= link_to "#{question.question_answers.count} 回答数", question_path(question.id) %></div>
             <div class="px-2">
               <% if question.is_active == true %>
                 解決
@@ -119,6 +118,7 @@
                 未解決
               <% end %>
             </div>
+            <div class="px-2"><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></div>
           </div>
         </div>
       <% end %>

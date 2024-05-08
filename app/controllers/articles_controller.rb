@@ -47,16 +47,16 @@ class ArticlesController < ApplicationController
     article.update(article_params)
     
     if params[:publicize_draft]
-      article.is_active = false
+      article.is_active = true
       if article.save(context: :publicize)
         flash[:notice] = "記事を公開しました。"
         redirect_to articles_path
       else
-        article.is_active = true
+        article.is_active = false
         render :edit, alert: "記事を公開できませんでした。"
       end
     elsif params[:update_article]
-      article.is_active = false
+      article.is_active = true
       if article.save(context: :publicize)
         flash[:notice] = "記事を更新しました。"
         redirect_to articles_path
@@ -64,7 +64,7 @@ class ArticlesController < ApplicationController
         render :edit, alert: "記事を更新できませんでした。"
       end
     else
-      article.is_active = true
+      article.is_active = false
       if article.update(article_params)
         flash[:notice] = "下書き記事を更新しました。"
         redirect_to user_path(current_user.id)

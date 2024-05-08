@@ -5,17 +5,17 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-  <%= f.label :name %><br>
+  <%= f.label :name, "Nombre / 表示される名前" %><br>
   <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email, "Email / メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "mail@example.com" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="fielñd">
+    <%= f.label :password, "Contrasena / パスワード" %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -23,12 +23,12 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "Confirmacion de contrasena / パスワード確認" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "同意して登録する" %>
   </div>
 <% end %>
 

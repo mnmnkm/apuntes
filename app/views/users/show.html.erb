@@ -22,10 +22,19 @@
       </div>
     </div>
     <div class="col-6 d-flex bd-highlight pt-5 row justify-content-end">
-      <p class="col-2 text-center">
-        <%= @total_count %><br>
-        <%= @articles.count %> / <%= @words.count %> / <%= @questions.count %>
-        投稿数  
+      <p class="d-flex">
+        <div class=" col-2 text-center">
+          <%= @articles.count %> <br>
+          articulos
+        </div>
+        <div class="col-2 text-center">
+          <%= @words.count %> <br>
+          palabras
+        </div>
+        <div class="col-2 text-center">
+          <%= @questions.count %> <br>
+          preguntas
+        </div>
       </p>
       <% user = @user %>
       <div class="col-2 text-center">
@@ -73,13 +82,13 @@
       <% @articles.each do |article| %>
         <section class='border-bottom article_sections'>
           <% if article.is_active == false %>
-            <p>
+            <span class="border border-info rounded-pill">
             　下書き
-            </p>
+            </span>
           <% end %>
-          <span class="h5">
+          <div class="h5">
             <%= link_to article.title, article_path(article.id) %>
-          </span>
+          </div>
           
           <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
           
@@ -119,9 +128,9 @@
     <div class="tab-pane fade" id="words" role="tabpanel" aria-labelledby="words-tab">
       <% @words.each do |word| %>
       <% if word.is_active == false %>
-        <p>
+        <span class="border border-info rounded-pill">
         　下書き
-        </p>
+        </span>
       <% end %>
        <div>
         <div>
@@ -205,9 +214,9 @@
     <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
       <% @questions.each do |question| %>
       <% if question.is_active == false %>
-        <p>
+        <span class="border border-info rounded-pill">
         　下書き
-        </p>
+        </span>
       <% end %>
 
         <div class="d-flex border-bottom preguntas_article">

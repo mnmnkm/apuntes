@@ -12,11 +12,11 @@
 
   <div class="d-flex justify-content-end mx-2 my-4">
     <% if @word.is_active == true %>
-      <%= f.submit "下書き保存", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
-      <%= f.submit "公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning text-white' %>
-    <% else %>
       <%= f.submit "下書きに戻す", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
-      <%= f.submit "更新", :name => 'update_post', class:'mr-2 btn btn-sm btn-warning text-light' %>
+      <%= f.submit "更新", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning text-white' %>
+    <% else %>
+      <%= f.submit "下書き更新", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "公開", :name => 'update_post', class:'mr-2 btn btn-sm btn-warning text-light' %>
     <% end %>
   </div>
 
