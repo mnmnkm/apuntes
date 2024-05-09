@@ -26,17 +26,17 @@
 　<!-- %= f.text_field :title, placeholder: "タイトル" %>-->
 　<!--%= f.text_area :body, placeholder: "本文" %>-->
 
-　<div class="mb-3 col-lg-8 offset-lg-2">
+  <div class="mb-3 col-lg-8 offset-lg-2">
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-outline-info mr-3">
-        <!--<input type="radio" name="options" id="option1" autocomplete="off" checked> 解決済-->
-        <%= f.radio_button :is_active, "true" %>解決
-      </label>
-      
-      <label class="btn btn-outline-info">
-        <!--<input type="radio" name="options" id="option2" autocomplete="off"> 未解決-->
-        <%= f.radio_button :is_active, "false" %>未解決
-      </label>
+      <div class="col-sm-10 btn-group" data-toggle="buttons">
+        <label class="btn btn-outline-secondary" style="width:50%">
+          <%= f.radio_button :is_solution, true %> 解決
+        </label>
+        <label class="btn btn-outline-secondary" style="width:50%">
+          <%= f.radio_button :is_solution, false %> 未解決
+        </label>
+      </div>
     </div>
   </div>
+
 <% end %>

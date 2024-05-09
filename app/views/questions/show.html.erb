@@ -3,7 +3,7 @@
 <div id="main" class="col-10">
 
 <div class='px-4 py-2'>
-  <% if @question.is_active == true %>
+  <% if @question.is_solution == true %>
     解決
   <% else %>
     未解決
@@ -33,7 +33,7 @@
   <p><i class="fa-regular fa-lightbulb"></i> <%= @question.question_answers.count %></p>
 
   <% if @question.user == current_user %>
-    <%= link_to edit_question_path(@question.id) do %>
+    <%= link_to edit_question_path(@question.id), data: {"turbolinks" => false} do %>
       <!--<i class="fa-regular fa-pen-to-square"></i>-->
       <div class="pl-2">
         <i class="fa-solid fa-pencil"></i>

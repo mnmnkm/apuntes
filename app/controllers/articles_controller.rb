@@ -44,11 +44,10 @@ class ArticlesController < ApplicationController
   
   def update
     article = Article.find(params[:id])
-    article.update(article_params)
     
     if params[:publicize_draft]
       article.is_active = true
-      if article.save(context: :publicize)
+      if article.update(article_params)
         flash[:notice] = "記事を公開しました。"
         redirect_to articles_path
       else
@@ -57,7 +56,7 @@ class ArticlesController < ApplicationController
       end
     elsif params[:update_article]
       article.is_active = true
-      if article.save(context: :publicize)
+      if article.update(article_params)
         flash[:notice] = "記事を更新しました。"
         redirect_to articles_path
       else
@@ -77,7 +76,13 @@ class ArticlesController < ApplicationController
   def destroy
     article = Article.find(params[:id])  
     article.destroy 
-    redirect_to articles_path  
+    if request.referer&.include?('/users/')
+      redirect_to user_path(current_user.id)
+    elsif request.referer&.include?('/articles')
+      redirect_to articles_path  
+    else
+      redirect_to root_path
+    end
   end
   
   

@@ -1,10 +1,18 @@
 
 <%= form_with model: @question do |f| %>
 
-  <div class="d-flex justify-content-end mx-2 my-4">
-　  <%= f.submit '下書き保存', :name => 'draft', class: 'mr-2 btn btn-sm btn-outline-secondary' %>
-　  <%= f.submit '公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
-　</div>
+　<div class="d-flex justify-content-end mx-2 my-4">
+    <% if @question.is_active == true %>
+      <%= f.submit "下書きに戻す", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "更新", :name => 'update_question', class:'mr-5 btn btn-sm btn-warning text-white' %>
+    <% else %>
+      <%= f.submit "下書き更新", :name => 'update_draft', class:'mr-2 btn btn-sm btn-outline-secondary' %>
+      <%= f.submit "公開", :name => 'publicize_draft', class:'mr-2 btn btn-sm btn-warning text-light' %>
+    <% end %>
+    <div>
+      <u><%= link_to "削除", question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:'mr-5 btn btn-sm btn-secondary' %></u>
+    </div>
+  </div>
 
 　<div class="mb-3 row">
     <%= f.text_field :title, placeholder: "タイトル", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
@@ -16,13 +24,14 @@
 
   <div class="mb-3 col-lg-8 offset-lg-2">
     <div class="btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-outline-info mr-3">
-        <%= f.radio_button :is_active, "true" %>解決
-      </label>
-      
-      <label class="btn btn-outline-info">
-        <%= f.radio_button :is_active, "false" %>未解決
-      </label>
+      <div class="col-sm-10 btn-group" data-toggle="buttons">
+        <label class="btn btn-outline-secondary" style="width:50%">
+          <%= f.radio_button :is_solution, true %> 解決
+        </label>
+        <label class="btn btn-outline-secondary" style="width:50%">
+          <%= f.radio_button :is_solution, false %> 未解決
+        </label>
+      </div>
     </div>
   </div>
   

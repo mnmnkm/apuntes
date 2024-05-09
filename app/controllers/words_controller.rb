@@ -42,30 +42,28 @@ class WordsController < ApplicationController
   def update
     @user = current_user
     word = Word.find(params[:id])
-    word.update(word_params)
-    redirect_to words_path 
-    
+
     word.assign_attributes(word_params)
    
     if params[:publicize_draft]
-      word.is_active = false
-      if word.save(context: :publicize)
+      word.is_active = true
+      if word.update(word_params)
         flash[:notice] = "単語を公開しました。"
         redirect_to words_path
       else
-        word.is_active = true
+        word.is_active = false
         render :edit, alert: "単語を公開できませんでした。"
       end
     elsif params[:update_word]
-      word.is_active = false
-      if word.save(context: :publicize)
+      word.is_active = true
+      if word.update(word_params)
         flash[:notice] = "単語を更新しました。"
         redirect_to words_path
       else
         render :edit, alert: "単語を更新できませんでした。"
       end
     else
-      word.is_active = true
+      word.is_active = false
       if word.update(word_params)
         flash[:notice] = "下書き単語を更新しました。"
         redirect_to user_path(current_user.id)
@@ -80,7 +78,13 @@ class WordsController < ApplicationController
   def destroy
     word = Word.find(params[:id])  
     word.destroy 
-    redirect_to words_path
+    if request.referer&.include?('/users/')
+      redirect_to user_path(current_user.id)
+    elsif request.referer&.include?('/words')
+      redirect_to words_path  
+    else
+      redirect_to root_path
+    end
   end
   
   private

@@ -25,7 +25,7 @@
         <div class="d-flex preguntas_article">
           <div class='px-4 py-2 text-center'>
             <p>
-            <% if question.is_active == true %>
+            <% if question.is_solution == true %>
               解決
             <% else %>
               未解決
@@ -59,7 +59,7 @@
         <div class="d-flex preguntas_article">
           <div class='px-4 py-2 text-center'>
             <p>
-            <% if question.is_active == true %>
+            <% if question.is_solution == true %>
               解決
             <% else %>
               未解決
@@ -93,7 +93,7 @@
       <div class="d-flex preguntas_article">
         <div class='px-4 py-2 text-center'>
           <p>
-          <% if question.is_active == true %>
+          <% if question.is_solution == true %>
             解決
           <% else %>
             未解決
