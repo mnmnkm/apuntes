@@ -31,7 +31,7 @@
               未解決
             <% end %>
             </p>
-            <p><%= link_to "#{question.question_answers.count} 回答数", question_path(question.id) %></p>
+            <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
           </div>
     
           <div class='flex-grow-1'>
@@ -99,7 +99,7 @@
             未解決
           <% end %>
           </p>
-          <p><%= link_to "#{question.question_answers.count} 回答数", question_path(question.id) %></p>
+          <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
         </div>
   
         <div class='flex-grow-1'>

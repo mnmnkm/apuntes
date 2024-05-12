@@ -53,7 +53,8 @@
   
   <p><i class="fa-solid fa-graduation-cap"></i> <%= @user.certification %></p>
   
-  <p><%= @user.introduction %></p>
+  <%= safe_join(@user.introduction.split("\n"),tag(:br)) %>
+
 
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
