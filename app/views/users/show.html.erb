@@ -24,15 +24,15 @@
     <div class="col-6 d-flex bd-highlight pt-5 row justify-content-end">
       <p class="d-flex">
         <div class=" col-2 text-center">
-          <%= @articles.count %> <br>
+          <%= @article_count %> <br>
           articulos
         </div>
         <div class="col-2 text-center">
-          <%= @words.count %> <br>
+          <%= @word_count %> <br>
           palabras
         </div>
         <div class="col-2 text-center">
-          <%= @questions.count %> <br>
+          <%= @question_count %> <br>
           preguntas
         </div>
       </p>
@@ -48,7 +48,7 @@
     </div>
   </div>
 
-  <span><i class="fa-regular fa-star"></i> <%= @user.spanish_level %></span>
+  <span><i class="fa-regular fa-star"></i> <%= @user.spanish_level_i18n %></span>
   
   
   <p><i class="fa-solid fa-graduation-cap"></i> <%= @user.certification %></p>
@@ -81,9 +81,9 @@
   <!--</div>-->
     <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
       <% @articles.each do |article| %>
-        <section class='border-bottom article_sections'>
+        <section class='border-bottom article_sections px-4 pt-3'>
           <% if article.is_active == false %>
-            <span class="border border-info rounded-pill">
+            <span class="border border-info rounded">
             　下書き
             </span>
           <% end %>
@@ -97,7 +97,7 @@
           <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                <p><%= image_tag article.user.get_profile_image(60,60) %></p>
+                <p><%= image_tag article.user.get_profile_image(40,40) %></p>
                 <p><%= article.user.name %></p>
               </div>
               <!-- user icon end -->
@@ -126,10 +126,10 @@
       <% end %>
     </div>
     
-    <div class="tab-pane fade" id="words" role="tabpanel" aria-labelledby="words-tab">
+    <div class="tab-pane fade px-4 pt-3" id="words" role="tabpanel" aria-labelledby="words-tab">
       <% @words.each do |word| %>
       <% if word.is_active == false %>
-        <span class="border border-info rounded-pill">
+        <span class="border border-info rounded">
         　下書き
         </span>
       <% end %>
@@ -160,7 +160,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <!-- user icon start -->
             <div class="d-flex align-items-center">
-              <p><%= image_tag word.user.get_profile_image(60,60) %></p>
+              <p><%= image_tag word.user.get_profile_image(40,40) %></p>
               <p><%= word.user.name %></p>
             </div>
             <!-- user icon end -->
@@ -190,7 +190,7 @@
         <!-- comment start -->
         <div>
           <% word.word_comments.each do |word_comment| %>
-            <p><%= image_tag word_comment.user.get_profile_image(50,50) %></p>
+            <p><%= image_tag word_comment.user.get_profile_image(40,40) %></p>
             <%= word_comment.user.name %>
             <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= word_comment.comment %>
             <% if word_comment.user == current_user %>
@@ -212,10 +212,10 @@
        </div>
       <% end %><!-- @words.each end -->
     </div>
-    <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
+    <div class="tab-pane fade px-4 pt-3" id="question" role="tabpanel" aria-labelledby="question-tab">
       <% @questions.each do |question| %>
       <% if question.is_active == false %>
-        <span class="border border-info rounded-pill">
+        <span class="border border-info rounded">
         　下書き
         </span>
       <% end %>
@@ -239,7 +239,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                    <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                    <p><%= image_tag question.user.get_profile_image(40,40) %></p>
                     <p><%= question.user.name %></p>
               </div>
               <div class="d-flex">

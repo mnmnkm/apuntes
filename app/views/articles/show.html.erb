@@ -1,5 +1,5 @@
 
-<div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+<div id="sidebar" class="col-2"><%= render'layouts/sidebar', user: @article.user %></div>
 <div id="main" class="col-10">
 
 
@@ -8,7 +8,7 @@
 <div class="d-flex align-items-center justify-content-between">
   <!-- user icon start -->
   <div class="d-flex align-items-center">
-    <p><%= image_tag @article.user.get_profile_image(60,60) %></p>
+    <p class=pr-2><%= image_tag @article.user.get_profile_image(40,40) %></p>
     <p><%= @article.user.name %></p>
   </div>
   <!-- user icon end -->

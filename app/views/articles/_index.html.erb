@@ -8,22 +8,32 @@
 
     <article class='d-flex flex-wrap'>
     <% articles.each do |article| %>
-      <section class='w-50 p-5 border-bottom border-right article_sections'>
+      <section class='w-50 p-3 border-bottom border-right article_sections'>
         <span>
           <%= link_to article.title, article_path(article.id) %>
         </span>
         
-        <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>
+        <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(70) %></p>
         <!--<span>本文一部表示したい</span>-->
         
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-end">
             <!-- user icon start -->
-            <div class="d-flex align-items-center">
-              <p><%= image_tag article.user.get_profile_image(60,60) %></p>
-              <p><%= article.user.name %></p>
+            <div class="d-flex align-items-end">
+              <div class="pr-2">
+                <%= image_tag article.user.get_profile_image(40,40) %>
+              </div>
+              <div>
+                <span class="d-block">
+                  <%= article.user.name %>
+                </span>
+                <span class="d-block">
+                  <%= article.created_at.strftime('%Y/%m/%d') %>
+                </span>
+              </div>
             </div>
+            
             <!-- user icon end -->
-            <div class="d-flex">
+            <div class="d-flex justify-content-end align-items-end">
               <div class="mr-2 d-flex">
                 <% if article.user == current_user %>
                   <%= link_to edit_article_path(article.id) do %>
@@ -35,12 +45,12 @@
                 <% end %>
               </div>
   
-              <div id="favorites-btn-<%= article.id %>" class="mr-2">
+              <div id="favorites-btn-<%= article.id %>" class="pr-2">
                 <%= render "article_favorites/favorites_btn", article: article %>
               </div>
             
-              <div class="mr-2">
-                <p><i class="fa-regular fa-comment"></i> <%= article.article_comments.count %></p>
+              <div class="pr-2">
+                <i class="fa-regular fa-comment"></i> <%= article.article_comments.count %>
               </div>
             </div>
           </div>

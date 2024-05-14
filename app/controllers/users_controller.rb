@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @articles = @user.articles.where(is_active: true).order(id: :desc)
     
     @total_count = @articles.count
+    @article_count = @articles.count
     
     if @user.id == current_user.id
       @not_active_articles = @user.articles.where(is_active: false).order(id: :desc)
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
     
     @words = @user.words.where(is_active: true).order(id: :desc)
     @total_count += @words.count
+    @word_count = @words.count
     
     if @user.id == current_user.id
       @not_active_words = @user.words.where(is_active: false).order(id: :desc)
@@ -22,6 +24,7 @@ class UsersController < ApplicationController
     
     @questions = @user.questions.where(is_active: true).order(id: :desc)
     @total_count += @questions.count
+    @question_count = @questions.count
     
     if @user.id == current_user.id
       @not_active_questions = @user.questions.where(is_active: false).order(id: :desc)

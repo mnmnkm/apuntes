@@ -22,8 +22,8 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
       <% @questions.each do |question| %>
-        <div class="d-flex preguntas_article">
-          <div class='px-4 py-2 text-center'>
+        <div class="d-flex preguntas_article align-items-center justify-content-center">
+          <div class='px-4 pt-3 text-center'>
             <p>
             <% if question.is_solution == true %>
               解決
@@ -34,14 +34,14 @@
             <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
           </div>
     
-          <div class='flex-grow-1'>
-            <span>
+          <div class='flex-grow-1 px-4 pt-3'>
+            <p>
               <%= link_to question.title, question_path(question.id) %>  
-            </span>
+            </p>
             <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                    <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                    <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
                     <p><%= question.user.name %></p>
               </div>
               <!-- user icon end -->
@@ -56,8 +56,8 @@
     </div>
     <div class="tab-pane fade" id="unresolved" role="tabpanel" aria-labelledby="unresolved-tab">
       <% @not_active_questions.each do |question| %>
-        <div class="d-flex preguntas_article">
-          <div class='px-4 py-2 text-center'>
+        <div class="d-flex preguntas_article align-items-center justify-content-center">
+          <div class='px-4 pt-3 text-center'>
             <p>
             <% if question.is_solution == true %>
               解決
@@ -68,14 +68,14 @@
             <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
           </div>
     
-          <div class='flex-grow-1'>
-            <span>
+          <div class='flex-grow-1 px-4 pt-3'>
+            <p>
               <%= link_to question.title, question_path(question.id) %>  
-            </span>
+            </p>
             <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                    <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                    <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
                     <p><%= question.user.name %></p>
               </div>
               <!-- user icon end -->
@@ -90,8 +90,8 @@
     </div>
     <div class="tab-pane fade" id="resolved" role="tabpanel" aria-labelledby="resolved-tab">
       <% @is_active_questions.each do |question| %>
-      <div class="d-flex preguntas_article">
-        <div class='px-4 py-2 text-center'>
+      <div class="d-flex preguntas_article align-items-center justify-content-center">
+        <div class='px-4 pt-3 text-center'>
           <p>
           <% if question.is_solution == true %>
             解決
@@ -102,14 +102,14 @@
           <p><i class="fa-regular fa-lightbulb"></i> <%= question.question_answers.count %></p>
         </div>
   
-        <div class='flex-grow-1'>
-          <span>
+        <div class='flex-grow-1 px-4 pt-3'>
+          <p>
             <%= link_to question.title, question_path(question.id) %>  
-          </span>
+          </p>
           <div class="d-flex justify-content-between align-items-center">
             <!-- user icon start -->
             <div class="d-flex align-items-center">
-                  <p><%= image_tag question.user.get_profile_image(60,60) %></p>
+                  <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
                   <p><%= question.user.name %></p>
             </div>
             <!-- user icon end -->

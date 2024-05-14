@@ -1,8 +1,8 @@
 
-<div id="sidebar" class="col-2"><%= render'layouts/sidebar' %></div>
+<div id="sidebar" class="col-2"><%= render'layouts/sidebar', user: @question.user %></div>
 <div id="main" class="col-10">
 
-<div class='px-4 py-2'>
+<div class='px-4 py-4'>
   <% if @question.is_solution == true %>
     解決
   <% else %>
@@ -19,7 +19,7 @@
 <!-- user icon start -->
 <div class="d-flex align-items-center  justify-content-between">
   <div class="d-flex align-items-center">
-    <p><%= image_tag @question.user.get_profile_image(60,60) %></p>
+    <p class="pr-2"><%= image_tag @question.user.get_profile_image(40,40) %></p>
     <p><%= @question.user.name %></p>
   </div>
     <p><%= @question.created_at.strftime('%Y/%m/%d') %></p>

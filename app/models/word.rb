@@ -11,10 +11,10 @@ class Word < ApplicationRecord
     validates :japanese_example
   end
     
-  validates :spanish, length: { maximum: 30 }
-  validates :japanese, length: { maximum: 20 }
-  validates :spanish_example, length: { maximum: 200 }
-  validates :japanese_example, length: { maximum: 200 }
+  validates :spanish, length: { maximum: 30 }, on: :publicize
+  validates :japanese, length: { maximum: 20 }, on: :publicize
+  validates :spanish_example, length: { maximum: 200 }, on: :publicize
+  validates :japanese_example, length: { maximum: 200 }, on: :publicize
   
 #   def favorited_by?(user)
 #   favorites.where(user_id: user.id).exists?

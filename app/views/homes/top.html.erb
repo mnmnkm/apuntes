@@ -14,14 +14,14 @@
           <div class="d-flex justify-content-between align-items-end row">
               <!-- user icon start -->
               <div class="d-flex align-items-end col-5">
-                <div>
-                  <%= image_tag article.user.get_profile_image(60,60) %>
+                <div class="pr-2">
+                  <%= image_tag article.user.get_profile_image(40,40) %>
                 </div>
                 <div>
                   <span class="d-block">
                     <%= article.user.name %>
                   </span>
-                  <span class="d-block mt-2">
+                  <span class="d-block">
                     <%= article.created_at.strftime('%Y/%m/%d') %>
                   </span>
                 </div>
@@ -57,20 +57,20 @@
         <% @words.each do |word| %>
           <section class='w-50 p-3 border-bottom border-right article_sections'>
             <p>
-              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s) + " -" + strip_tags(word.spanish_example.to_s)).gsub(/[\n]/,"").strip.truncate(50) %>
+              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s)).gsub(/[\n]/,"").strip.truncate(30) %>
             </p>
             <div>
               <div class="d-flex justify-content-between row">
                 <!-- user icon start -->
                 <div class="d-flex align-items-end col-5">
-                  <div>
-                    <%= image_tag word.user.get_profile_image(60,60) %>
+                  <div class="pr-2">
+                    <%= image_tag word.user.get_profile_image(40,40) %>
                   </div>
                   <div>
                     <span class="d-block">
                       <%= word.user.name %>
                     </span>
-                    <span class="d-block mt-2">
+                    <span class="d-block">
                       <%= word.created_at.strftime('%Y/%m/%d') %>
                     </span>
                   </div>
