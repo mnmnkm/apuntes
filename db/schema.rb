@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 2024_05_09_123931) do
     t.text "spanish_example"
     t.text "japanese_example"
     t.boolean "is_active", default: true, null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
