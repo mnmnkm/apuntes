@@ -53,7 +53,11 @@
   
   <p><i class="fa-solid fa-graduation-cap"></i> <%= @user.certification %></p>
   
-  <%= safe_join(@user.introduction.split("\n"),tag(:br)) %>
+  <% if @user.introduction.nil? %>
+  
+  <% else %>
+    <%= safe_join(@user.introduction.split("\n"),tag(:br)) %>
+  <% end %>
 
 
 
