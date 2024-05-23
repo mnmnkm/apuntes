@@ -41,7 +41,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                    <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
+                    <p class="pr-2"><%= image_tag question.user.get_profile_image, style: "width: 40px" %></p>
                     <p><%= question.user.name %></p>
               </div>
               <!-- user icon end -->
@@ -75,7 +75,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- user icon start -->
               <div class="d-flex align-items-center">
-                    <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
+                    <p class="pr-2"><%= image_tag question.user.get_profile_image, style: "width: 40px" %></p>
                     <p><%= question.user.name %></p>
               </div>
               <!-- user icon end -->
@@ -109,7 +109,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <!-- user icon start -->
             <div class="d-flex align-items-center">
-                  <p class="pr-2"><%= image_tag question.user.get_profile_image(40,40) %></p>
+                  <p class="pr-2"><%= image_tag question.user.get_profile_image, style: "width: 40px" %></p>
                   <p><%= question.user.name %></p>
             </div>
             <!-- user icon end -->

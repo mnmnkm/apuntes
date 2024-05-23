@@ -19,7 +19,7 @@
 <!-- user icon start -->
 <div class="d-flex align-items-center  justify-content-between">
   <div class="d-flex align-items-center">
-    <p class="pr-2"><%= image_tag @question.user.get_profile_image(40,40) %></p>
+    <p class="pr-2"><%= image_tag @question.user.get_profile_image, style: "width: 40px" %></p>
     <p><%= @question.user.name %></p>
   </div>
     <p><%= @question.created_at.strftime('%Y/%m/%d') %></p>
@@ -52,7 +52,7 @@
 <div>
   <% @question.question_comments.each do |question_comment| %>
     <div class="d-flex">
-      <p><%= image_tag question_comment.user.get_profile_image(50,50) %></p>
+      <p><%= image_tag question_comment.user.get_profile_image, style: "width: 50px" %></p>
       <%= question_comment.user.name %>
       <%= question_comment.created_at.strftime('%Y/%m/%d') %><%= question_comment.comment %>
       <% if question_comment.user == current_user %>
@@ -80,7 +80,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <div class="d-flex">
-          <p><%= image_tag question_answer.user.get_profile_image(50,50) %></p>
+          <p><%= image_tag question_answer.user.get_profile_image, style: "width: 50px" %></p>
           <%= question_answer.user.name %>
           <%= question_answer.created_at.strftime('%Y/%m/%d') %>
           </div>
