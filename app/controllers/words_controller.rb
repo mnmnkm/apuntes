@@ -1,4 +1,6 @@
 class WordsController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
     @word = Word.new
   end
