@@ -10,7 +10,7 @@ class Article < ApplicationRecord
     validates :body
   end
   
-  validates :title, length: { maximum: 30 }
+  validates :title, length: { maximum: 40 }
   validates :body, length: { maximum: 1000 } 
   
   # validates :title, presence: true

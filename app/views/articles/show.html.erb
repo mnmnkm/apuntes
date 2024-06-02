@@ -2,8 +2,10 @@
 <div id="sidebar" class="col-2"><%= render'layouts/sidebar', user: @article.user %></div>
 <div id="main" class="col-10">
 
+<div class="my-4">
+  <h2><%= @article.title %></h2>
+</div>
 
-<h2><%= @article.title %></h2>
 
 <div class="d-flex align-items-center justify-content-between">
   <!-- user icon start -->
@@ -27,13 +29,13 @@
   </div>
   <p><i class="fa-regular fa-comment"></i> <%= @article.article_comments.count %></p>
 
-  <div class="mr-2">
+  <div class=" d-flex mr-2">
     <% if @article.user == current_user %>
       <%= link_to edit_article_path(@article.id) do %>
-        <div class="pl-3"><i class="fa-solid fa-pencil"></i></div>
+        <div class="pl-3"><i class="fa-solid fa-pencil text-secondary"></i></div>
       <% end %>
       <%= link_to article_path(@article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-        <div class="pl-3"><i class="fa-regular fa-trash-can"></i></div>
+        <div class="pl-3"><i class="fa-regular fa-trash-can text-secondary"></i></div>
       <% end %>
     <% end %>
   </div>

@@ -2,16 +2,16 @@
   <div id="sidebar" class="col-2"><%= render'layouts/sidebar' ,user: current_user %></div>
   <div id="main" class="col-10">
 
-    <div class="my-3">
+    <div class="my-3 text-info">
      <h1>articulos</h1>
     </div>
 
     <article class='d-flex flex-wrap'>
     <% articles.each do |article| %>
       <section class='w-50 p-3 border-bottom border-right article_sections'>
-        <span>
-          <%= link_to article.title, article_path(article.id) %>
-        </span>
+        <h5 class="font-weight-bold">
+          <%= link_to article.title, article_path(article.id), class:"text-dark" %>
+        </h5>
         
         <p class='example'><%= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(70) %></p>
         <!--<span>本文一部表示したい</span>-->
@@ -24,7 +24,7 @@
               </div>
               <div>
                 <span class="d-block">
-                  <%= article.user.name %>
+                  <%= link_to article.user.name, user_path(article.user.id), class: "text-secondary" %>
                 </span>
                 <span class="d-block">
                   <%= article.created_at.strftime('%Y/%m/%d') %>
@@ -37,10 +37,10 @@
               <div class="mr-2 d-flex">
                 <% if article.user == current_user %>
                   <%= link_to edit_article_path(article.id) do %>
-                    <div class="pr-3"><i class="fa-solid fa-pencil"></i></div>
+                    <div class="pr-3"><i class="fa-solid fa-pencil text-secondary"></i></div>
                   <% end %>
                   <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                    <div class="pr-3"><i class="fa-regular fa-trash-can"></i></div>
+                    <div class="pr-3"><i class="fa-regular fa-trash-can text-secondary"></i></div>
                   <% end %>
                 <% end %>
               </div>

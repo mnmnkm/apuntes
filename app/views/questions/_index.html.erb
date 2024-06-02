@@ -2,7 +2,7 @@
   <div id="sidebar" class="col-2"><%= render'layouts/sidebar', user: current_user %></div>
   <div id="main" class="col-10">
 
-    <div class="my-3">
+    <div class="my-3 text-success">
       <h1>preguntas</h1>
     </div>
     
@@ -42,7 +42,7 @@
               <!-- user icon start -->
               <div class="d-flex align-items-center">
                     <p class="pr-2"><%= image_tag question.user.get_profile_image, style: "width: 40px" %></p>
-                    <p><%= question.user.name %></p>
+                    <p><%= link_to question.user.name, user_path(question.user.id) %></p>
               </div>
               <!-- user icon end -->
               <div class="mr-2">

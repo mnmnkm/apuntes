@@ -36,12 +36,12 @@
     <%= link_to edit_question_path(@question.id), data: {"turbolinks" => false} do %>
       <!--<i class="fa-regular fa-pen-to-square"></i>-->
       <div class="pl-2">
-        <i class="fa-solid fa-pencil"></i>
+        <i class="fa-solid fa-pencil text-secondary"></i>
       </div>
       <% end %>
     <%= link_to question_path(@question.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
       <div class="pl-2">
-        <i class="fa-regular fa-trash-can"></i>
+        <i class="fa-regular fa-trash-can text-secondary"></i>
       </div>
     <% end %>
   <% end %>
@@ -93,7 +93,7 @@
           <% if question_answer.user == current_user %>
             <%= link_to question_question_answer_path(question_answer.question, question_answer), method: :delete do %>
               <div class="pl-2">
-                <i class="fa-regular fa-trash-can"></i>
+                <i class="fa-regular fa-trash-can text-secondary"></i>
               </div>
             <% end %>
           <% end %>

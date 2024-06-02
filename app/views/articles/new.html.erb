@@ -24,7 +24,8 @@
 
 　<!--%= f.text_area :body %>-->
 　<!--%= f.label :body %>-->
-  <%= f.rich_text_area :body, placeholder: "本文" %>
-
+　<div class="mb-3 row">
+    <%= f.rich_text_area :body, placeholder: "本文", class:"form-control form-control-lg mb-3 col-lg-8 offset-lg-2" %>
+  </div>
 
 <% end %>

@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-8">
     
-    <div class="h2 pt-3 px-5"><%= link_to "articulos", articles_path %></div>
+    <div class="h2 pt-3 px-5"><%= link_to "articulos", articles_path, class: "text-info" %></div>
     <article class='d-flex flex-wrap px-5'>
       <% @articles.each do |article| %>
         <section class='w-50 p-3 border-bottom border-right article_sections'>
           <p class="h5">
-            <%= link_to article.title, article_path(article.id) %>
+            <%= link_to article.title, article_path(article.id), class: "text-dark" %>
           </p>
           
           <!--<p class='example'><%#= strip_tags(article.body.to_s).gsub(/[\n]/,"").strip.truncate(30) %></p>-->
@@ -19,7 +19,7 @@
                 </div>
                 <div>
                   <span class="d-block">
-                    <%= article.user.name %>
+                    <%= link_to article.user.name, user_path(article.user.id), class: "text-secondary" %>
                   </span>
                   <span class="d-block">
                     <%= article.created_at.strftime('%Y/%m/%d') %>
@@ -31,15 +31,15 @@
                 <!--<div>-->
                   <% if article.user == current_user %>
                     <%= link_to edit_article_path(article.id) do %>
-                      <div class="pr-3"><i class="fa-solid fa-pencil"></i></div>
+                      <div class="pr-3"><i class="fa-solid fa-pencil text-secondary"></i></div>
                     <% end %>
                     <%= link_to article_path(article.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                      <div class="pr-3"><i class="fa-regular fa-trash-can"></i></div>
+                      <div class="pr-3"><i class="fa-regular fa-trash-can text-secondary"></i></div>
                     <% end %>
                   <% end %>
                 <!--</div>-->
     
-                <div id="favorites-btn-<%= article.id %>" class="pr-2">
+                <div id="favorites-btn-<%= article.id %>" class="pr-2 text-bark">
                   <%= render "article_favorites/favorites_btn", article: article %>
                 </div>
               
@@ -52,12 +52,12 @@
       <% end %>
     </article>
     
-    <div class="h2 pt-5 px-5"><%= link_to "palabras", words_path %></div>
+    <div class="h2 pt-5 px-5"><%= link_to "palabras", words_path, class: "text-warning" %></div>
       <word class='d-flex flex-wrap px-5'>
         <% @words.each do |word| %>
           <section class='w-50 p-3 border-bottom border-right article_sections'>
             <p>
-              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s)).gsub(/[\n]/,"").strip.truncate(30) %>
+              <%= (strip_tags(word.spanish.to_s) + "：" + strip_tags(word.japanese.to_s)).gsub(/[\n]/,"").strip.truncate(40) %>
             </p>
             <div>
               <div class="d-flex justify-content-between row">
@@ -68,7 +68,7 @@
                   </div>
                   <div>
                     <span class="d-block">
-                      <%= word.user.name %>
+                      <%= link_to word.user.name, user_path(word.user.id), class: "text-secondary" %>
                     </span>
                     <span class="d-block">
                       <%= word.created_at.strftime('%Y/%m/%d') %>
@@ -80,10 +80,10 @@
                     <% if word.user == current_user %>
                       <%= link_to edit_word_path(word.id) do %>
                         <!--<i class="fa-regular fa-pen-to-square"></i>-->
-                        <div class="pr-3"><i class="fa-solid fa-pencil"></i></div>
+                        <div class="pr-3"><i class="fa-solid fa-pencil text-secondary"></i></div>
                       <% end %>
                       <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                        <div class="pr-3"><i class="fa-regular fa-trash-can"></i></div>
+                        <div class="pr-3"><i class="fa-regular fa-trash-can text-secondary"></i></div>
                       <% end %>
                     <% end %>
 
@@ -103,11 +103,11 @@
   </div>
   
   <div class="col-4">
-    <div class="h2 pt-3"><%= link_to "preguntas", questions_path %></div>
+    <div class="h2 pt-3"><%= link_to "preguntas", questions_path, class: "text-success" %></div>
       <% @questions.each do |question| %>
         <div class="d-flex pl-2 pr-4 py-2 border-bottom border-left preguntas_article row justify-content-end w-100">
           <div class='h5 col-12'>
-            <%= link_to question.title, question_path(question.id) %>  
+            <%= link_to question.title, question_path(question.id), class: "text-dark" %>  
             <br>
           </div>
           <div class="d-flex align-items-end col-5">

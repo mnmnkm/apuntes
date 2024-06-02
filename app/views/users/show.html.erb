@@ -8,14 +8,14 @@
       <div class="col-6">
         <span class="h2"><%= @user.name %></span>
         <p class="mt-4">
-          <% if @user.id == current_user.id %>
+          <% if @user == current_user %>
           <!--% if current_user == @user %>-->
             <%= link_to "プロフィール編集", edit_user_path(@user), class:"btn btn-outline-secondary" %>
           <% else %>
-            <% if current_user.following?(user) %>
-              <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+            <% if current_user.following?(@user) %>
+              <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete %>
             <% else %>
-              <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+              <%= link_to "フォローする", user_relationships_path(@user), method: :post %>
             <% end %>
           <% end %>
         </p>
@@ -36,13 +36,12 @@
           preguntas
         </div>
       </p>
-      <% user = @user %>
       <div class="col-2 text-center">
-        <%= link_to user.followings.count, user_followings_path(user) %> <br>
+        <%= link_to @user.followings.count, user_followings_path(@user) %> <br>
         seguiendo
       </div>
       <div class="col-2 text-center">
-        <%= link_to user.followers.count, user_followers_path(user) %> <br>
+        <%= link_to @user.followers.count, user_followers_path(@user) %> <br>
         seguidores
       </div>
     </div>
@@ -132,90 +131,92 @@
       <% end %>
     </div>
     
-    <div class="tab-pane fade px-4 pt-3" id="words" role="tabpanel" aria-labelledby="words-tab">
+    <div class="tab-pane fade" id="words" role="tabpanel" aria-labelledby="words-tab">
       <% @words.each do |word| %>
-      <% if word.is_active == false %>
-        <span class="border border-info rounded">
-        　下書き
-        </span>
-      <% end %>
-       <div>
-        <div>
-          <dl>
-            <div class="d-flex">
-              <dt class="col">
-                <!--<p>スペイン語 単語</p>-->
-                <h4><span><%= word.spanish %></span></h4>
-              </dt>
-              <dd class="col">
-                <!--<p>日本語 単語</p>-->
-                <h5><span><%= word.japanese %></span></h5><br>
-              </dd>
-            </div>
-            <div class="d-flex">
-              <dt class="col">
-                <!--<p>スペイン語 例文</p>-->
-                <span><%= simple_format(word.spanish_example) %></span><br>
-              </dt>
-              <dd class="col">
-                <!--<p>日本語 例文</p>-->
-                <span><%= simple_format(word.japanese_example) %></span>
-              </dd>
-            </div>
-          </dl>
-          <div class="d-flex justify-content-between align-items-center">
-            <!-- user icon start -->
-            <div class="d-flex align-items-center">
-              <p class="pr-2"><%= image_tag word.user.get_profile_image, style: "width: 40px" %></p>
-              <p><%= word.user.name %></p>
-            </div>
-            <!-- user icon end -->
-            <div class="d-flex">
-              <div class="mr-2">
-                <% if word.user == current_user %>
-                  <%= link_to edit_word_path(word.id) do %>
-                    <!--<i class="fa-regular fa-pen-to-square"></i>-->
-                    <i class="fa-solid fa-pencil"></i>
-                    <% end %>
-                  <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-                    <i class="fa-regular fa-trash-can"></i>
-                  <% end %>
-                <% end %>
-              </div>
-
-              <div id="favorites-btn-<%= word.id %>" class="mr-2">
-                <%= render "word_favorites/favorites_btn", word: word %>
-              </div>
-            
-              <div class="mr-2">
-                <p><i class="fa-regular fa-comment"></i> <%= word.word_comments.count %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- comment start -->
-        <div>
-          <% word.word_comments.each do |word_comment| %>
-            <p class="pr-2"><%= image_tag word_comment.user.get_profile_image, style: "width: 40px" %></p>
-            <%= word_comment.user.name %>
-            <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= word_comment.comment %>
-            <% if word_comment.user == current_user %>
-              <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
-            <% end %>
+        <section class='border-bottom word_sections px-4 pt-3'>
+          <% if word.is_active == false %>
+            <span class="border border-info rounded">
+            　下書き
+            </span>
           <% end %>
-          <% if user_signed_in? %>
+          <div>
             <div>
-              <%= form_with model: [word, @word_comment] do |f| %>
+              <dl>
+                <div class="d-flex pt-4">
+                  <dt class="col">
+                    <!--<p>スペイン語 単語</p>-->
+                    <h4><span><%= word.spanish %></span></h4>
+                  </dt>
+                  <dt class="col">
+                    <!--<p>スペイン語 例文</p>-->
+                    <span><%= simple_format(word.spanish_example) %></span><br>
+                  </dt>
+                </div>
                 <div class="d-flex">
-                  <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
-                  <%= f.submit "送信する", class: "align-self-end ml-3" %>
+                  <dd class="col">
+                    <!--<p>日本語 単語</p>-->
+                    <h5><span><%= word.japanese %></span></h5><br>
+                  </dd>
+                  <dd class="col">
+                    <!--<p>日本語 例文</p>-->
+                    <span><%= simple_format(word.japanese_example) %></span>
+                  </dd>
+                </div>
+              </dl>
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- user icon start -->
+                <div class="d-flex align-items-center">
+                  <p class="pr-2"><%= image_tag word.user.get_profile_image, style: "width: 40px" %></p>
+                  <p><%= word.user.name %></p>
+                </div>
+                <!-- user icon end -->
+                <div class="d-flex">
+                  <div class="mr-2">
+                    <% if word.user == current_user %>
+                      <%= link_to edit_word_path(word.id) do %>
+                        <!--<i class="fa-regular fa-pen-to-square"></i>-->
+                        <i class="fa-solid fa-pencil"></i>
+                        <% end %>
+                      <%= link_to word_path(word.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                        <i class="fa-regular fa-trash-can"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+    
+                  <div id="favorites-btn-<%= word.id %>" class="mr-2">
+                    <%= render "word_favorites/favorites_btn", word: word %>
+                  </div>
+                
+                  <div class="mr-2">
+                    <p><i class="fa-regular fa-comment"></i> <%= word.word_comments.count %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- comment start -->
+            <div>
+              <% word.word_comments.each do |word_comment| %>
+                <p class="pr-2"><%= image_tag word_comment.user.get_profile_image, style: "width: 40px" %></p>
+                <%= word_comment.user.name %>
+                <%= word_comment.created_at.strftime('%Y/%m/%d') %><%= word_comment.comment %>
+                <% if word_comment.user == current_user %>
+                  <%= link_to "削除", word_word_comment_path(word_comment.word, word_comment), method: :delete %>
+                <% end %>
+              <% end %>
+              <% if user_signed_in? %>
+                <div>
+                  <%= form_with model: [word, @word_comment] do |f| %>
+                    <div class="d-flex">
+                      <%= f.text_area :comment, size: "150x1", placeholder: "コメント入力", class: "display-block" %>
+                      <%= f.submit "送信する", class: "align-self-end ml-3" %>
+                    </div>
+                  <% end %>
                 </div>
               <% end %>
             </div>
-          <% end %>
-        </div>
-        <!-- comment end -->
-       </div>
+            <!-- comment end -->
+          </div>
+        </section>  
       <% end %><!-- @words.each end -->
     </div>
     <div class="tab-pane fade px-4 pt-3" id="question" role="tabpanel" aria-labelledby="question-tab">
